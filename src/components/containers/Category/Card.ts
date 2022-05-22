@@ -14,7 +14,7 @@ const TabHolder = styled.div`
     }
 `;
 
-const Tab = styled.div`
+const Tab = styled.div`    
     margin: 0px 8px;
     float: left;
     padding: 12px;

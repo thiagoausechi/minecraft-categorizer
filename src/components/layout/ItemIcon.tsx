@@ -4,15 +4,15 @@ import { Missingno } from "../../lib/MinecraftItems";
 
 interface Props
 {
-    texture: string | null,
-    name: string | null,
-    size?: number,
-    inSlot?: boolean,
+    texture: string | null
+    name: string | null
+    size?: number
+    inSlot?: boolean
 }
 
 interface StyleProps
 {
-    inSlot?: boolean,
+    inSlot?: boolean
     size?: number
 }
 

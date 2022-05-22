@@ -1,9 +1,12 @@
+import styled from "styled-components";
 import { useEffect } from "react";
 
 import Package from "../../../../package.json";
 
 import Container from "./Container";
 import Content from "./Content";
+
+import LogoSrc from "../../../assets/img/logo.png";
 
 interface Props
 {
@@ -20,7 +23,10 @@ const Page: React.FC<Props> = ({ title, content }) =>
 
     return (
         <Container>
-            <Title />
+            <Header>
+                <Logo src={LogoSrc} alt={"Site Logo"} />
+                <Title />
+            </Header>
 
             <Content>
                 {content}
@@ -35,10 +41,22 @@ const Page: React.FC<Props> = ({ title, content }) =>
     );
 }
 
-const Title         = () => <h1>Minecraft Categorizer</h1>
-const Credits       = () => <h5>Created by <Creator />.</h5>;
-const Creator       = () => <a href="https://github.com/thiagoausechi" target="_blank" rel="noreferrer">Thiago Ausechi</a>;
-const Disclaimer    = () => <h5>"Minecraft"™ is a trademark of Mojang Synergies AB. <br />We are not affiliate with Mojang.</h5>;
-const Version       = () => <h5>{Package.version}</h5>;
+const Header = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+`
+
+const Logo = styled.img`
+    width: 40px;
+    height: 40px;
+`
+
+const Title = () => <h1>Minecraft Categorizer</h1>
+const Credits = () => <h5>Created by <Creator />.</h5>;
+const Creator = () => <a href="https://github.com/thiagoausechi" target="_blank" rel="noreferrer">Thiago Ausechi</a>;
+const Disclaimer = () => <h5>"Minecraft"™ is a trademark of Mojang Synergies AB. <br />We are not affiliate with Mojang.</h5>;
+const Version = () => <h5>{Package.version}</h5>;
 
 export default Page;

@@ -5,18 +5,22 @@ import GlobalStyle from './components/GlobalStyle';
 import Page from './components/containers/PageContext';
 import App from './pages/App';
 import NotFound from './pages/NotFound';
+import React from 'react';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
-  <BrowserRouter>
-    <GlobalStyle />
-    <Routes>
-      <Route path="/"     element={<Page content={<App />}      title="Home" />} />
-      <Route path="/404"  element={<Page content={<NotFound />} title="Not Found" />} />
-      <Route path="*"     element={<Navigate to="/404" />} />
-    </Routes>
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <GlobalStyle />
+      <Routes>
+        <Route path="/minecraft-categorizer" element={<Page content={<App />} title="Home" />} />
+        <Route path="/404" element={<Page content={<NotFound />} title="Not Found" />} />
+        <Route path="/" element={<Navigate to="/minecraft-categorizer" />} />
+        <Route path="*" element={<Navigate to="/404" />} />
+      </Routes>
+    </BrowserRouter>
+  </React.StrictMode>
 );

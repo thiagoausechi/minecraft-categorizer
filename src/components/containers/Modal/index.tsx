@@ -1,5 +1,7 @@
 import Modal from "react-modal";
 
+Modal.setAppElement("#root");
+
 interface Props
 {
     isOpen: boolean,

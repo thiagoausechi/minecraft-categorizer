@@ -2,7 +2,10 @@ import styled from "styled-components";
 import ItemIcon from "../../layout/ItemIcon";
 import Slot from "../../layout/Slot";
 
-const Control = styled.div`
+const Control = styled.span`
+    position: relative;
+    display: block;
+
     &:hover, ${ItemIcon.Icon}:hover + ${Slot}
     {
         background-color: #FFFFFF66;

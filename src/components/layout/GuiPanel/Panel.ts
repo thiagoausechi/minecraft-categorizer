@@ -4,10 +4,12 @@ interface Props
 {
     min?: string,
     max?: string,
+    fitContent?: boolean
 }
 
 const Panel: any = styled.div<Props>`
-    width: ${p => p.min && p.max ? `max(${p.max}, ${p.min})` : ""};
+    width: ${p => p.fitContent ? "fit-content" :
+        p.min && p.max ? `max(${p.max}, ${p.min})` : ""};
     height: fit-content;
     padding: 15px;
 

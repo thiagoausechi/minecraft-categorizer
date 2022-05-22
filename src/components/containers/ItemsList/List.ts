@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const List = styled.div`
-    max-height: 700px;
+    max-height: 60vh;
     overflow-y: scroll;
 
     display: flex;

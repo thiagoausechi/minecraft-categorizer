@@ -1,7 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 
-import Minecraft from "../assets/fonts/Minecraft.woff"
-
 const GlobalStyle = createGlobalStyle`
     *, :after, :before
     {
@@ -24,10 +22,8 @@ const GlobalStyle = createGlobalStyle`
     @font-face {
         font-family: Minecraft;
         font-style: normal;
-        src: url(${Minecraft});
+        src: url("./minecraft-categorizer/assets/fonts/Minecraft.woff");
     }
-
-    /* Minecraft-Style Button => https://codepen.io/joexmdq/pen/EOMLzg */
 
     /* Minecraft-Styled Scroolbar */
     ::-webkit-scrollbar
