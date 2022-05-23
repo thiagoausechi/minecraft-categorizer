@@ -1,15 +1,7 @@
 import styled from "styled-components";
 
-interface Props
-{
-    min?: string,
-    max?: string,
-    fitContent?: boolean
-}
-
-const Panel: any = styled.div<Props>`
-    width: ${p => p.fitContent ? "fit-content" :
-        p.min && p.max ? `max(${p.max}, ${p.min})` : ""};
+const Panel: any = styled.div<{ fullWidth: boolean }>`
+    width: ${p => p.fullWidth ? "" : "fit-content"};
     height: fit-content;
     padding: 15px;
 

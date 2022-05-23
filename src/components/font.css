@@ -1,0 +1,14 @@
+body {
+    font-family: Minecraft;
+}
+
+/*
+ * This was a workaround I found for a
+ * "styled-component" flickering the font
+ * when a dynamic props changes
+ */
+@font-face {
+    font-family: Minecraft;
+    font-style: normal;
+    src: url("../assets/fonts/Minecraft.woff");
+}

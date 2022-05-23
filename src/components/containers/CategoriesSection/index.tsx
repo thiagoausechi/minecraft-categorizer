@@ -1,5 +1,7 @@
+import styled from "styled-components";
 import { ChangeEvent, useState } from "react";
 import { Category } from "../../../lib/Categories.type";
+import { useAppSelector } from "../../../lib/hooks/useAppSelector.hook";
 import { consolidate } from "../../../lib/MinecraftItems";
 import { filterCategory, filterItem } from "../../../lib/search";
 import Button from "../../layout/Button";
@@ -13,22 +15,11 @@ import Modal from "../Modal";
 import List from "./List";
 import Top from "./Top";
 
-interface Props
+const CategoriesSection: React.FC = () => 
 {
-    categories: { [key: string]: Category }
-    order: string[]
-    handlers: {
-        addCategory: (id: string, c: Category, addLast: boolean) => void
-        modifyCategory: (id: string, c: Category) => void
-        updateCategoryItems: (id: string, items: string[]) => void
-        addItemToCategory: (item: string, category: string) => void
-        removeCategory: (id: string) => void
-        setCategoriesOrder: Function
-    }
-};
+    const categories = useAppSelector(state => state.categories.value);
+    const order = useAppSelector(state => state.order.value);
 
-const CategoriesSection: React.FC<Props> = ({ categories, order, handlers }) => 
-{
     const [searchText, setSearchText] = useState("");
     const updateSearchText = (e: ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value);
 
@@ -38,7 +29,7 @@ const CategoriesSection: React.FC<Props> = ({ categories, order, handlers }) =>
     const [activeCategory, setActiveCategory] = useState<Category | {} | null>(null);
     const closeModal = () => setActiveCategory(null);
     const openModal = () => setActiveCategory({});
-    const openEditModal = (_: Category) => setActiveCategory(_);
+    const openEditModal = (c: Category) => setActiveCategory(c);
 
     // This part can be a little confusing, I know
     const filteredOrder = order.filter((e) =>
@@ -56,51 +47,61 @@ const CategoriesSection: React.FC<Props> = ({ categories, order, handlers }) =>
     );
 
     return (
-        <GuiPanel title="Categories" min={"510px"} max={"50vw"} >
-            <Top>
-                <div>
-                    <Textbox type="text" value={searchText} placeholder="Search..." onChange={updateSearchText} />
-                </div>
-                <div>
-                    <Button title="Reorder" active={isReordering} onClick={toggleReordering} />
-                    <Button title="New Category" onClick={openModal} />
-                </div>
-            </Top>
+        <GuiPanel title="Categories">
+            <Wrapper>
+                <Top>
+                    <div style={{ flexGrow: 1 }}>
+                        <Textbox type="text" value={searchText} placeholder="Search..." onChange={updateSearchText} />
+                    </div>
+                    <div>
+                        <Button title="Reorder" active={isReordering} onClick={toggleReordering} />
+                        <Button title="New Category" onClick={openModal} />
+                    </div>
+                </Top>
 
-            {isReordering ?
-                <List>
-                    {order.length <= 1 ? <AlertMoreCategories /> :
-                        order.map((key, index) =>
-                            <CategoryReorderCard
+                {isReordering ?
+                    <List>
+                        {order.length <= 1 ? <AlertMoreCategories /> :
+                            order.map((key, index) =>
+                                <CategoryReorderCard
+                                    key={key}
+                                    index={index}
+                                    category={categories[key]}
+                                    openEditModal={openEditModal}
+                                />)}
+                    </List>
+                    :
+                    <List>
+                        {filteredOrder.map(key =>
+                            <CategoryCard
                                 key={key}
-                                index={index}
-                                order={order}
                                 category={categories[key]}
-                                handlers={{ ...handlers, openEditModal }}
-                            />)}
-                </List>
-                :
-                <List>
-                    {filteredOrder.map(key =>
-                        <CategoryCard
-                            key={key}
-                            category={categories[key]}
-                            search={searchText.charAt(0) !== ">" ? searchText : ""}
-                            handlers={{ ...handlers, openEditModal }}
-                        />)
-                    }
-                    {order.length > 0 ? null : <AlertAddCategories />}
-                </List>
-            }
+                                search={searchText.charAt(0) !== ">" ? searchText : ""}
+                                openEditModal={openEditModal}
+                            />)
+                        }
+                        {order.length > 0 ? null : <AlertAddCategories />}
+                    </List>
+                }
 
-            <Modal
-                isOpen={!!activeCategory}
-                onClose={closeModal}
-                content={<CategoryModal openedCategory={activeCategory} handlers={{ ...handlers, closeModal }} />}
-            />
+                <Modal
+                    isOpen={!!activeCategory}
+                    onClose={closeModal}
+                    content={<CategoryModal openedCategory={activeCategory} closeModal={closeModal} />}
+                />
+            </Wrapper>
         </GuiPanel>
     );
 }
+
+const Wrapper = styled.div`
+  width: max(50vw, 510px);
+
+  @media screen and (max-width: 600px)
+  {
+    width: 85vw;
+  }
+`
 
 const AlertAddCategories = () => <h4>You can start by creating new categories!</h4>;
 const AlertMoreCategories = () => <h4>You need to add more categories!</h4>;

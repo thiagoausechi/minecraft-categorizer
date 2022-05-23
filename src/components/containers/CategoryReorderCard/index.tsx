@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 import { Category } from "../../../lib/Categories.type";
+import { useAppDispatch } from "../../../lib/hooks/useAppDispatch.hook";
+import { useAppSelector } from "../../../lib/hooks/useAppSelector.hook";
 import { getItemById } from "../../../lib/MinecraftItems";
+import { arrange } from "../../../store/slices/orderSlice";
 import Button from "../../layout/Button";
 import Clickable from "../../layout/Clickable";
 import GuiPanel from "../../layout/GuiPanel";
@@ -12,32 +15,22 @@ interface Props
 {
     category: Category
     index: number
-    order: string[]
-    handlers:
-    {
-        setCategoriesOrder: Function
-        openEditModal: (c: Category) => void
-    }
+    openEditModal: (c: Category) => void
 }
 
 const CategoryReorderCard: React.FC<Props> = (props) => 
 {
-    const { index, order, category, handlers } = props;
-    const { name, icon } = category;
+    const dispatch = useAppDispatch();
+    const order = useAppSelector(state => state.order.value)
+    const { index, category: { name, icon, items }, openEditModal } = props;
 
-    const editCategory = () => props.handlers.openEditModal(props.category);
+    const editCategory = () => openEditModal(props.category);
 
-    const moveUp = () => handlers.setCategoriesOrder(arrange(index, index - 1))
-    const moveDown = () => handlers.setCategoriesOrder(arrange(index, index + 1))
-    const arrange = (from: number, to: number, arr = [...order]) =>
-    {
-        const item = arr.splice(from, 1);
-        arr.splice(to, 0, item[0]);
-        return arr;
-    };
+    const moveUp = () => dispatch(arrange({ from: index, to: index - 1 }));
+    const moveDown = () => dispatch(arrange({ from: index, to: index + 1 }));
 
     return (
-        <GuiPanel>
+        <GuiPanel fullWidth>
             <Wrapper>
                 <ArrowsWrapper>
                     <UpArrow>
@@ -53,12 +46,15 @@ const CategoryReorderCard: React.FC<Props> = (props) =>
                 </ArrowsWrapper>
 
                 <Clickable onClick={editCategory}>
-                    <GuiPanel fitContent>
-                        <ItemIcon texture={getItemById(icon).texture} name={name} size={50} inSlot={false} />
+                    <GuiPanel>
+                        <ItemIcon texture={getItemById(icon).texture} name={name} size={30} inSlot={false} />
                     </GuiPanel>
                 </Clickable>
 
                 <h3>{name}</h3>
+                <ItemsCount>
+                    <h3>{items.length} Items</h3>
+                </ItemsCount>
             </Wrapper>
         </GuiPanel>
     );
@@ -69,5 +65,15 @@ const ArrowsWrapper = styled.div``
 const UpArrow = styled.div``
 
 const DownArrow = styled.div``
+
+const ItemsCount = styled.div`
+    flex-grow: 1;
+    text-align: end;
+
+    @media screen and (max-width: 600px)
+    {
+        display: none;
+    }
+`
 
 export default CategoryReorderCard;

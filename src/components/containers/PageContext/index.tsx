@@ -6,7 +6,7 @@ import Package from "../../../../package.json";
 import Container from "./Container";
 import Content from "./Content";
 
-import LogoSrc from "../../../assets/img/logo.png";
+import LogoSrc from "../../../assets/img/title.png";
 
 interface Props
 {
@@ -24,8 +24,7 @@ const Page: React.FC<Props> = ({ title, content }) =>
     return (
         <Container>
             <Header>
-                <Logo src={LogoSrc} alt={"Site Logo"} />
-                <Title />
+                <Logo src={LogoSrc} alt={"Logo"} />
             </Header>
 
             <Content>
@@ -45,15 +44,23 @@ const Header = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 18px;
+    margin-bottom: 15px;
 `
 
 const Logo = styled.img`
-    width: 40px;
-    height: 40px;
+    height: 100px;
+
+    @media screen and (max-width: 1023px)
+    {
+        height: 75px;
+    }
+
+    @media screen and (max-width: 600px)
+    {
+        height: 15vw;
+    }
 `
 
-const Title = () => <h1>Minecraft Categorizer</h1>
 const Credits = () => <h5>Created by <Creator />.</h5>;
 const Creator = () => <a href="https://github.com/thiagoausechi" target="_blank" rel="noreferrer">Thiago Ausechi</a>;
 const Disclaimer = () => <h5>"Minecraft"™ is a trademark of Mojang Synergies AB. <br />We are not affiliate with Mojang.</h5>;

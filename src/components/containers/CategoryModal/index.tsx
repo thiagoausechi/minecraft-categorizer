@@ -12,15 +12,20 @@ import ItemFrameButton from "../../layout/ItemFrameButton";
 import Button from "../../layout/Button";
 import Textbox from "../../layout/Textbox";
 import Checkbox from "../../layout/Checkbox";
+import { add as addCategory, remove as removeCategory, update as updateCategory } from "../../../store/slices/categoriesSlice";
+import { add as addToOrder, remove as removeFromOrder } from "../../../store/slices/orderSlice";
+import { useAppDispatch } from "../../../lib/hooks/useAppDispatch.hook";
+import { add as refund } from "../../../store/slices/uncategorizedSlice";
 
 interface Props
 {
-    openedCategory: Category | {} | null,
-    handlers: { [key: string]: Function },
+    openedCategory: Category | {} | null
+    closeModal: () => void
 }
 
-const CategoryModal: React.FC<Props> = ({ openedCategory, handlers }) =>
+const CategoryModal: React.FC<Props> = ({ openedCategory, closeModal }) =>
 {
+    const dispatch = useAppDispatch();
     const [modifing, setModifing] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
 
@@ -56,8 +61,10 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, handlers }) =>
 
     const deleteCategory = () =>
     {
-        handlers.removeCategory((openedCategory as Category).id);
-        handlers.closeModal()
+        dispatch(removeCategory((openedCategory as Category)));
+        dispatch(removeFromOrder((openedCategory as Category).id));
+        dispatch(refund((openedCategory as Category).items));
+        closeModal();
     }
 
     const handleSubmit = () =>
@@ -77,11 +84,13 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, handlers }) =>
                 items: !modifing ? [...getRandom(getAllIDs())] : (openedCategory as Category).items
             }
 
-            if (modifing)
-                handlers.modifyCategory(category.id, category);
+            if (modifing) dispatch(updateCategory(category));
             else
-                handlers.addCategory(category.id, category, addLast);
-            handlers.closeModal();
+            {
+                dispatch(addCategory(category));
+                dispatch(addToOrder({ id: category.id, addLast }));
+            }
+            closeModal();
         }
         else setError(true);
     };
@@ -102,7 +111,7 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, handlers }) =>
 
             <ModalSection>
                 <h3>Choose an Icon</h3>
-                <GuiPanel fitContent>
+                <GuiPanel>
                     <ItemIcon texture={selectedIcon.texture} name={selectedIcon.name} size={50} inSlot={false} />
                 </GuiPanel>
 
@@ -123,18 +132,22 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, handlers }) =>
                 </ButtonsGrid>
             </ModalSection>
 
-            {modifing ? null :
-                <ModalSection>
+            <ModalSection>
+                {modifing && openedCategory ?
+                    <div>
+                        {(openedCategory as Category).items.length} Items
+                    </div>
+                    :
                     <Checkbox
                         label="Add at the end?"
                         checked={addLast}
                         onChange={toggleAddLast}
                     />
-                </ModalSection>
-            }
+                }
+            </ModalSection>
 
             <ButtonsWrapper>
-                <Button title="Back" onClick={handlers.closeModal} />
+                <Button title="Back" onClick={closeModal} />
                 <Button title={modifing ? "Save" : "Create"} onClick={handleSubmit} />
                 {!modifing ? null :
                     <Button title="Delete" danger onClick={deleteCategory} />
@@ -144,13 +157,13 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, handlers }) =>
     );
 }
 
+// TODO Remove this from here
 const IconsPreset = [
     "barrier", "grass_block", "bricks", "peony",
     "redstone", "powered_rail", "lava_bucket", "apple",
     "iron_axe", "golden_sword", "potion", "stick"
-]
 
-// TODO Remove this from here
+]
 const ButtonsWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -165,7 +178,7 @@ const Wrapper = styled.div`
     
     gap: 20px;
 
-    width: 25vw;
+    width: max(25vw, 340px);
     height: 80vh;
 
     overflow: auto;
@@ -174,6 +187,15 @@ const Wrapper = styled.div`
     {
         margin-block-start: 7px;
         margin-block-end: 7px;
+    }
+
+    @media screen and (max-width: 1023px)
+    {
+    }
+
+    @media screen and (max-width: 600px)
+    {
+        
     }
 `
 

@@ -9,7 +9,8 @@ export interface PresetType
 {
     name: string
     icon: string
-    uncategorized: string[]
+    // If "uncategorized" is null, it'll fill with remaining items
+    uncategorized: string[] | null
     categories: { [key: string]: Category }
     categories_order: string[]
 }

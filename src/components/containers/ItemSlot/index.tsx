@@ -22,11 +22,7 @@ const ItemSlot: React.FC<Props> = ({ item, context, removeItem }) =>
         type: "ITEM",
         item: { id: item.id, context: context },
         end: ({ id }, monitor) => monitor.didDrop() ? removeItem(id) : null,
-        collect:
-            (monitor) =>
-            ({
-                isDragging: monitor.isDragging()
-            })
+        collect: (monitor) => ({ isDragging: monitor.isDragging() })
     }));
 
     const [{ active, x, y }, setTooltip] = useState({ active: false, x: 0, y: 0 });

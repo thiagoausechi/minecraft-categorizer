@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 const Textbox = styled.input<any>`
+    width: -webkit-fill-available;
+    width: fill-available;
+
     background-color: #cfcfcf;
     font-family: 'Minecraft';
     padding: 9px;

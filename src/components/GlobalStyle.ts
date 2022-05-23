@@ -8,7 +8,6 @@ const GlobalStyle = createGlobalStyle`
 
     body
     {
-        font-family: Minecraft;
         background: #eee;
         color: #404040;
     }
@@ -17,12 +16,6 @@ const GlobalStyle = createGlobalStyle`
     {
         color: #000000;
         cursor: pointer;
-    }
-
-    @font-face {
-        font-family: Minecraft;
-        font-style: normal;
-        src: url("./minecraft-categorizer/assets/fonts/Minecraft.woff");
     }
 
     /* Minecraft-Styled Scroolbar */

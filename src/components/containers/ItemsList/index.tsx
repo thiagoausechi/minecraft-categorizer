@@ -9,22 +9,19 @@ interface Props
 {
     list: string[]
     context: string
-    updateList: (list: string[]) => void
     addItem: (item: string) => void
+    removeItem: (item: string) => void
     search: string
 };
 
-const ItemsList: React.FC<Props> = ({ list, context, updateList, addItem, search }) =>
+const ItemsList: React.FC<Props> = ({ list, context, addItem, removeItem, search }) =>
 {
     const [, dropRef] = useDrop<{ id: string, context: string }, unknown, unknown>(() =>
     ({
         accept: "ITEM",
-        canDrop: (item, monitor) => item.context !== context,
+        canDrop: (item) => item.context !== context,
         drop: ({ id }: { id: string }) => addItem(id)
-
     }));
-
-    const removeItemFromList = (id: string) => updateList(list.filter(i => i !== id));
 
     const filtered = consolidate(list).filter((e) =>
     {
@@ -34,10 +31,13 @@ const ItemsList: React.FC<Props> = ({ list, context, updateList, addItem, search
 
     return (
         <List ref={dropRef}>
-            {filtered.map(item => <ItemSlot key={item.id} item={item} context={context} removeItem={removeItemFromList} />)}
+            {filtered.map(item => <ItemSlot key={item.id} item={item} context={context} removeItem={removeItem} />)}
+            {(search && search !== "") && filtered.length === 0 ? <NotFound /> : null}
             {list.length !== 0 ? null : <Slot />}
         </List>
     );
 }
+
+const NotFound = () => <h4>No items were found.</h4>;
 
 export default ItemsList;

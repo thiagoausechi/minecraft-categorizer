@@ -3,16 +3,14 @@ import Panel from "./Panel";
 interface Props
 {
     title?: string,
-    min?: string,
-    max?: string,
-    fitContent?: boolean,
+    fullWidth?: boolean,
     children?: string | number | JSX.Element | JSX.Element[],
 };
 
-const GuiPanel: React.FC<Props> = ({ title, min, max, fitContent, children }) =>
+const GuiPanel: React.FC<Props> = ({ title, fullWidth, children }) =>
 {
     return (
-        <Panel min={min} max={max} fitContent={fitContent}>
+        <Panel fullWidth={fullWidth}>
             {!title ? null : <Panel.Title>{title}</Panel.Title>}
             {children || ""}
         </Panel>
