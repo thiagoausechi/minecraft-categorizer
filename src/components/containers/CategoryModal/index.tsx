@@ -71,17 +71,12 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, closeModal }) =>
     {
         if (categoryName !== "")
         {
-            // I'm clueless about how this thing is working
-            const getRandom = (array: any[]) =>
-                Array.from(Array(Math.floor((Math.random() * 50))).keys())
-                    .map(k => array[Math.floor((Math.random() * array.length))]);
-
             const category =
             {
                 id: !modifing ? uuidv4() : (openedCategory as Category).id,
                 name: categoryName,
                 icon: selectedIcon.id,
-                items: !modifing ? [...getRandom(getAllIDs())] : (openedCategory as Category).items
+                items: !modifing ? [] : (openedCategory as Category).items
             }
 
             if (modifing) dispatch(updateCategory(category));
@@ -189,13 +184,8 @@ const Wrapper = styled.div`
         margin-block-end: 7px;
     }
 
-    @media screen and (max-width: 1023px)
+    @media screen and (max-width: 1075px)
     {
-    }
-
-    @media screen and (max-width: 600px)
-    {
-        
     }
 `
 

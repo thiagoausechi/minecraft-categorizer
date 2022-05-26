@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-inline: 15px;
 
     margin-inline: auto;
 
@@ -20,6 +19,11 @@ const Container = styled.div`
     {
         margin-block-start: 0px;
         margin-block-end: 8px;
+    }
+
+    @media screen and (max-width: 600px)
+    {
+        padding-inline: 0px;
     }
 `;
 

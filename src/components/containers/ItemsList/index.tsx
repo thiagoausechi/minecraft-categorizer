@@ -33,7 +33,7 @@ const ItemsList: React.FC<Props> = ({ list, context, addItem, removeItem, search
         <List ref={dropRef}>
             {filtered.map(item => <ItemSlot key={item.id} item={item} context={context} removeItem={removeItem} />)}
             {(search && search !== "") && filtered.length === 0 ? <NotFound /> : null}
-            {list.length !== 0 ? null : <Slot />}
+            {list.length !== 0 ? null : (search && search !== "") ? null : <Slot />}
         </List>
     );
 }

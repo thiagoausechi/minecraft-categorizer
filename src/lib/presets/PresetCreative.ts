@@ -1,7 +1,5 @@
 import { PresetType } from ".";
 
-import { getAllIDs } from "../MinecraftItems";
-
 const Preset: PresetType =
 {
     name: "Creative Tabs",

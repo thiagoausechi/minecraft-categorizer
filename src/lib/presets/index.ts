@@ -1,6 +1,7 @@
 import { Category } from "../Categories.type"
 
 import PresetDummy from "./PresetDummy";
+import PresetNv0 from "./PresetNv0";
 import PresetClear from "./PresetClear";
 import PresetColors from "./PresetColors";
 import PresetCreative from "./PresetCreative";
@@ -15,4 +16,4 @@ export interface PresetType
     categories_order: string[]
 }
 
-export const PRESETS: PresetType[] = [PresetDummy, PresetClear, PresetColors, PresetCreative]
+export const PRESETS: PresetType[] = [PresetDummy, PresetNv0, PresetClear, PresetColors, PresetCreative]

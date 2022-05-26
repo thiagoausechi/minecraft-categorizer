@@ -35,6 +35,7 @@ const Input: any = styled.button<any>`
 	white-space: nowrap;
 	user-select: none;
 
+    /* TODO Save this locally */
 	background: #999 url('https://i.ibb.co/rb2TWXL/bgbtn.png') center / cover;
 	image-rendering: pixelated;
 

@@ -18,6 +18,8 @@ interface Props
 
 const ItemSlot: React.FC<Props> = ({ item, context, removeItem }) => 
 {
+    const [{ active, x, y }, setTooltip] = useState({ active: false, x: 0, y: 0 });
+
     const [{ isDragging }, dragRef, preview] = useDrag<{ id: string, context: string }, unknown, { isDragging: boolean }>(() => ({
         type: "ITEM",
         item: { id: item.id, context: context },
@@ -25,18 +27,17 @@ const ItemSlot: React.FC<Props> = ({ item, context, removeItem }) =>
         collect: (monitor) => ({ isDragging: monitor.isDragging() })
     }));
 
-    const [{ active, x, y }, setTooltip] = useState({ active: false, x: 0, y: 0 });
-
     return (<>
+        <DragPreviewImage connect={preview} src={item.texture} />
         <Tooltiped setTooltip={setTooltip}>
             <Control ref={dragRef} >
-                {isDragging ? null : <ItemIcon texture={item.texture} name={item.name} />}
-                {isDragging ? null : <ItemTooltip item={item} active={active} x={x} y={y} />}
-                <DragPreviewImage connect={preview} src={item.texture} />
+                <div style={{ display: isDragging ? "none" : "block" }} >
+                    <ItemIcon texture={item.texture} name={item.name} />
+                    <ItemTooltip item={item} active={active} x={x} y={y} />
+                </div>
                 <Slot />
             </Control>
         </Tooltiped>
-
     </>
     );
 }

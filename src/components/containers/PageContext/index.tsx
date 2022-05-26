@@ -50,7 +50,7 @@ const Header = styled.div`
 const Logo = styled.img`
     height: 100px;
 
-    @media screen and (max-width: 1023px)
+    @media screen and (max-width: 1075px)
     {
         height: 75px;
     }

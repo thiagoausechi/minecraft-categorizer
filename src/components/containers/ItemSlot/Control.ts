@@ -6,6 +6,8 @@ const Control = styled.span`
     position: relative;
     display: block;
 
+    cursor: grab;
+
     &:hover, ${ItemIcon.Icon}:hover + ${Slot}
     {
         background-color: #FFFFFF66;

@@ -1,3 +1,5 @@
+import { isMobile } from "react-device-detect";
+
 import Container from "./Container"
 import Description from "./Description"
 import Title from "./Title"
@@ -20,7 +22,7 @@ export interface MessageProps
 }
 
 const Tooltip: React.FC<TooltipProps> = ({ title, description, active, x, y }) =>
-    !active ? null : (
+    !active || isMobile ? null : (
         <Container x={x} y={y} >
             <Title title={title} />
             <Description description={description} />

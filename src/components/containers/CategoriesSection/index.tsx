@@ -53,7 +53,7 @@ const CategoriesSection: React.FC = () =>
                     <div style={{ flexGrow: 1 }}>
                         <Textbox type="text" value={searchText} placeholder="Search..." onChange={updateSearchText} />
                     </div>
-                    <div>
+                    <div className="buttons">
                         <Button title="Reorder" active={isReordering} onClick={toggleReordering} />
                         <Button title="New Category" onClick={openModal} />
                     </div>
@@ -95,12 +95,18 @@ const CategoriesSection: React.FC = () =>
 }
 
 const Wrapper = styled.div`
-  width: max(50vw, 510px);
+    width: max(50vw, 510px);
 
-  @media screen and (max-width: 600px)
-  {
-    width: 85vw;
-  }
+    @media screen and (max-width: 600px)
+    {
+        width: max(90vw, 268px);
+
+        .buttons
+        {
+            display: none;
+        }
+    }
+
 `
 
 const AlertAddCategories = () => <h4>You can start by creating new categories!</h4>;

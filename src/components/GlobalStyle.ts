@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
     *, :after, :before
@@ -79,5 +79,7 @@ const GlobalStyle = createGlobalStyle`
         box-shadow: inset 3px 3px 0px 0px #555555, inset -3px -3px 0px 0px #ffffffad;
     }
 `;
+
+export const AppPanelsWidth = "clamp(268px, 87vw, 520px)";
 
 export default GlobalStyle;

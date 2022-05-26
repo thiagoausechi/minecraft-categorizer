@@ -1,15 +1,17 @@
-import styled from "styled-components";
+import { useRef } from "react";
+import { useDrag, useDrop } from "react-dnd";
+import type { Identifier } from "dnd-core";
 
 import { Category } from "../../../lib/Categories.type";
 import { useAppDispatch } from "../../../lib/hooks/useAppDispatch.hook";
-import { useAppSelector } from "../../../lib/hooks/useAppSelector.hook";
 import { getItemById } from "../../../lib/MinecraftItems";
 import { arrange } from "../../../store/slices/orderSlice";
-import Button from "../../layout/Button";
+
 import Clickable from "../../layout/Clickable";
 import GuiPanel from "../../layout/GuiPanel";
 import ItemIcon from "../../layout/ItemIcon";
 import Wrapper from "./Wrapper";
+import ItemsCount from "./ItemsCount";
 
 interface Props
 {
@@ -21,31 +23,39 @@ interface Props
 const CategoryReorderCard: React.FC<Props> = (props) => 
 {
     const dispatch = useAppDispatch();
-    const order = useAppSelector(state => state.order.value)
-    const { index, category: { name, icon, items }, openEditModal } = props;
+    const ref = useRef<HTMLDivElement>(null);
+    const { index, category: { id, name, icon, items }, openEditModal } = props;
 
-    const editCategory = () => openEditModal(props.category);
+    const [{ handlerId }, drop] = useDrop<
+        { index: number, id: string, type: string },
+        void,
+        { handlerId: Identifier | null }
+    >({
+        accept: "CATEGORY",
+        collect: (monitor) => ({ handlerId: monitor.getHandlerId() }),
+        hover: (item) => 
+        {
+            if (!ref.current) return;
+            const dragIndex = item.index;
+            const hoverIndex = index;
+            if (dragIndex === hoverIndex) return;
 
-    const moveUp = () => dispatch(arrange({ from: index, to: index - 1 }));
-    const moveDown = () => dispatch(arrange({ from: index, to: index + 1 }));
+            dispatch(arrange({ from: dragIndex, to: hoverIndex }));
+            item.index = hoverIndex;
+        }
+    });
+
+    const [, drag] = useDrag({
+        type: "CATEGORY",
+        item: () => ({ id, index })
+    });
+
+    drag(drop(ref));
 
     return (
         <GuiPanel fullWidth>
-            <Wrapper>
-                <ArrowsWrapper>
-                    <UpArrow>
-                        {index === 0 ? null :
-                            <Button title="🔼" onClick={moveUp} />
-                        }
-                    </UpArrow>
-                    <DownArrow>
-                        {index === order.length - 1 ? null :
-                            <Button title="🔽" onClick={moveDown} />
-                        }
-                    </DownArrow>
-                </ArrowsWrapper>
-
-                <Clickable onClick={editCategory}>
+            <Wrapper ref={ref} data-handler-id={handlerId}>
+                <Clickable onClick={() => openEditModal(props.category)}>
                     <GuiPanel>
                         <ItemIcon texture={getItemById(icon).texture} name={name} size={30} inSlot={false} />
                     </GuiPanel>
@@ -59,21 +69,5 @@ const CategoryReorderCard: React.FC<Props> = (props) =>
         </GuiPanel>
     );
 }
-
-const ArrowsWrapper = styled.div``
-
-const UpArrow = styled.div``
-
-const DownArrow = styled.div``
-
-const ItemsCount = styled.div`
-    flex-grow: 1;
-    text-align: end;
-
-    @media screen and (max-width: 600px)
-    {
-        display: none;
-    }
-`
 
 export default CategoryReorderCard;
