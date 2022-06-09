@@ -2,7 +2,7 @@
 
 As an aspiring "Redstone Mechanical Engineer", whenever I created an item sorter it was impossible for me to be able to categorize them without forgetting one. It was in this need that I decided to build up this site, where we are able to create categories and organize the items, not loosing track for what item you've already sorted. 
 
-![Site Screenshot](https://i.imgur.com/PRnGcy3.png)
+![Site Screenshot](https://i.imgur.com/Tp9iFqy.png)
 
 The concept is very simple and the execution even more so! Just start by creating the categories, customizing the name and icon, and then drag and drop the item in the the category you want they to stay in. I also prepared some presets in case you're not creative at the moment.
 
