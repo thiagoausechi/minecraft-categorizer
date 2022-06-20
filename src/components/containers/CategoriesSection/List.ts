@@ -5,7 +5,7 @@ const List = styled.div`
     
     display: flex;
     flex-flow: column;
-    gap: 12px;
+    gap: 20px;
 `;
 
 export default List;

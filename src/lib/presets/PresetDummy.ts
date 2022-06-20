@@ -3,7 +3,7 @@ import { PresetType } from ".";
 const Preset: PresetType =
 {
     name: "Dummy",
-    icon: "minecraft:bundle",
+    icon: "minecraft:totem_of_undying",
     uncategorized: [
         "minecraft:stone",
         "minecraft:granite",

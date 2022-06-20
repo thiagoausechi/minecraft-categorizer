@@ -1,19 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
-import { Category } from "../../lib/Categories.type";
+import { TypedObj } from "../../lib/global.type";
+import { CategoryType } from "../../lib/Categories.type";
 import { sortById } from "../../lib/MinecraftItems";
-
-interface CategoriesState
-{
-    value: { [key: string]: Category };
-}
+import { read, write } from "../local";
 
 export const NAME = "categories";
 
+export interface CategoriesState
+{
+    value: TypedObj<CategoryType>;
+}
+
 const initialState: CategoriesState =
 {
-    // TODO Place this in another location
-    value: JSON.parse(localStorage.getItem(NAME) || "null") || {}
+    value: read(NAME, {})
 }
 
 export const categoriesSlice = createSlice({
@@ -21,36 +22,33 @@ export const categoriesSlice = createSlice({
     initialState,
     reducers:
     {
-        add: (state, { payload }: PayloadAction<Category>) =>
-        { state.value[payload.id] = payload; setItem(NAME, state.value); },
+        add: (state, { payload }: PayloadAction<CategoryType>) =>
+        { state.value[payload.id] = payload; write(NAME, state.value); },
 
-        remove: (state, { payload }: PayloadAction<Category>) =>
-        { const { [payload.id]: removed, ...newList } = state.value; state.value = newList; setItem(NAME, state.value); },
+        remove: (state, { payload }: PayloadAction<CategoryType>) =>
+        { const { [payload.id]: removed, ...newList } = state.value; state.value = newList; write(NAME, state.value); },
 
-        update: (state, { payload }: PayloadAction<Category>) =>
-        { state.value[payload.id] = payload; setItem(NAME, state.value); },
+        update: (state, { payload }: PayloadAction<CategoryType>) =>
+        { state.value[payload.id] = payload; write(NAME, state.value); },
 
-        set: (state, { payload }: PayloadAction<{ [key: string]: Category }>) =>
-        { state.value = setItem(NAME, payload); },
+        set: (state, { payload }: PayloadAction<TypedObj<CategoryType>>) =>
+        { state.value = write(NAME, payload); },
 
-        addItem: (state, { payload: { category, item } }: PayloadAction<{ category: Category, item: string }>) =>
-        { state.value[category.id].items = sortById([...state.value[category.id].items, item]); setItem(NAME, state.value); },
+        addItems: (state, { payload: { category, items } }: PayloadAction<{ category: string, items: string[] }>) =>
+        {
+            const newItems: string[] = [];
+            items.forEach(item => !state.value[category].items.includes(item) ? newItems.push(item) : null);
+            state.value[category].items = write(NAME, sortById([...state.value[category].items, ...newItems]));
+        },
 
-        removeItem: (state, { payload: { category, item } }: PayloadAction<{ category: Category, item: string }>) =>
-        { state.value[category.id].items = state.value[category.id].items.filter(i => i !== item); setItem(NAME, state.value); },
+        removeItems: (state, { payload: { category, items } }: PayloadAction<{ category: string, items: string[] }>) =>
+        { state.value[category].items = state.value[category].items.filter(i => !items.includes(i)); write(NAME, state.value); },
 
-        updateItems: (state, { payload: { category, items } }: PayloadAction<{ category: Category, items: string[] }>) =>
-        { state.value[category.id].items = sortById(items); setItem(NAME, state.value); },
+        updateItems: (state, { payload: { category, items } }: PayloadAction<{ category: CategoryType, items: string[] }>) =>
+        { state.value[category.id].items = sortById(items); write(NAME, state.value); },
     }
 });
 
-// TODO Place this in another location
-const setItem = (key: string, data: any) =>
-{
-    localStorage.setItem(key, JSON.stringify(data));
-    return data;
-}
-
-export const { add, remove, update, set, addItem, removeItem, updateItems } = categoriesSlice.actions
+export const { add, remove, update, set, addItems, removeItems, updateItems } = categoriesSlice.actions
 export const selectCategories = (state: RootState) => state.categories.value
 export default categoriesSlice.reducer

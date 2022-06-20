@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import Background from "../../assets/img/button_bg.png";
 import Check from "../../assets/img/check.png";
 
 const Indicator = styled.div`
@@ -13,7 +14,7 @@ const Indicator = styled.div`
     height: 30px;
     width: 30px;
     
-    background: #999 url('https://i.ibb.co/rb2TWXL/bgbtn.png') center / cover;
+    background: #999 url(${Background}) center / cover;
 	image-rendering: pixelated;
     
     border: 2px solid #000000;

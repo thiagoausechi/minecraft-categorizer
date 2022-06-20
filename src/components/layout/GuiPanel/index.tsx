@@ -1,13 +1,8 @@
+import { GuiPanelProps } from "./types";
+
 import Panel from "./Panel";
 
-interface Props
-{
-    title?: string,
-    fullWidth?: boolean,
-    children?: string | number | JSX.Element | JSX.Element[],
-};
-
-const GuiPanel: React.FC<Props> = ({ title, fullWidth, children }) =>
+const GuiPanel: React.FC<GuiPanelProps> = ({ title, fullWidth, children }) =>
 {
     return (
         <Panel fullWidth={fullWidth}>

@@ -16,7 +16,11 @@ const useWindowDimensions = () =>
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    return windowDimensions;
+    return {
+        ...windowDimensions,
+        vw: (s = 1) => s * (windowDimensions.width / 100),
+        vh: (s = 1) => s * (windowDimensions.height / 100)
+    };
 }
 
 export default useWindowDimensions;

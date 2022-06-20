@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MessageProps } from "./index";
+import { MessageProps } from "./types";
 import Text from "../Text";
 
 const TooltipTitle = styled.div<{ color?: string }>`

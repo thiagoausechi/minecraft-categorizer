@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import type { Identifier } from "dnd-core";
 
-import { Category } from "../../../lib/Categories.type";
+import { CategoryType } from "../../../lib/Categories.type";
 import { useAppDispatch } from "../../../lib/hooks/useAppDispatch.hook";
 import { getItemById } from "../../../lib/MinecraftItems";
 import { arrange } from "../../../store/slices/orderSlice";
@@ -15,9 +15,9 @@ import ItemsCount from "./ItemsCount";
 
 interface Props
 {
-    category: Category
+    category: CategoryType
     index: number
-    openEditModal: (c: Category) => void
+    openEditModal: (c: CategoryType) => void
 }
 
 const CategoryReorderCard: React.FC<Props> = (props) => 

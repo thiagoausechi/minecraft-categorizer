@@ -1,6 +1,8 @@
 import { MouseEvent } from "react";
 import styled from "styled-components";
 
+import Background from "../../assets/img/button_bg.png";
+
 /* 
  * Minecraft-Style Button
  * Credits to Joex
@@ -19,7 +21,6 @@ const Title = styled.div`
         inset 2px 2px #FFF7;
 `
 
-
 const Input: any = styled.button<any>`
 
     font-family: "Minecraft";
@@ -35,8 +36,7 @@ const Input: any = styled.button<any>`
 	white-space: nowrap;
 	user-select: none;
 
-    /* TODO Save this locally */
-	background: #999 url('https://i.ibb.co/rb2TWXL/bgbtn.png') center / cover;
+	background: #999 url(${Background}) center / cover;
 	image-rendering: pixelated;
 
 	border: 2px solid #000;
@@ -68,9 +68,11 @@ interface Props
     onClick?: MouseEvent | Function
 }
 
-const Button: React.FC<Props> = ({ title, danger, active, onClick }) => 
-{
-    return <Input onClick={onClick} active={active} danger={danger}><Title>{title}</Title></Input>
-}
+const Button: React.FC<Props> = ({ title, danger, active, onClick }) =>
+    <Input onClick={onClick} active={active} danger={danger}>
+        <Title>
+            {title}
+        </Title>
+    </Input>
 
 export default Button;

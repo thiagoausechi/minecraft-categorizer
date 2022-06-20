@@ -1,7 +1,7 @@
-import { Category } from "../../../lib/Categories.type";
+import { CategoryType } from "../../../lib/Categories.type";
 import { useAppDispatch } from "../../../lib/hooks/useAppDispatch.hook";
 import { getItemById } from "../../../lib/MinecraftItems";
-import { addItem, removeItem } from "../../../store/slices/categoriesSlice";
+import { addItems } from "../../../store/slices/categoriesSlice";
 import Clickable from "../../layout/Clickable";
 import GuiPanel from "../../layout/GuiPanel";
 import ItemIcon from "../../layout/ItemIcon";
@@ -10,9 +10,9 @@ import Card from "./Card";
 
 interface Props
 {
-    category: Category
+    category: CategoryType
     search: string
-    openEditModal: (c: Category) => void
+    openEditModal: (c: CategoryType) => void
 }
 
 const CategoryCard: React.FC<Props> = (props) => 
@@ -32,9 +32,8 @@ const CategoryCard: React.FC<Props> = (props) =>
             <GuiPanel title={name} fullWidth>
                 <ItemsList
                     list={items}
-                    context={id}
-                    addItem={(item: string) => dispatch(addItem({ category: props.category, item }))}
-                    removeItem={(item: string) => dispatch(removeItem({ category: props.category, item }))}
+                    context={{ origin: "CATEGORY", reference: id }}
+                    addItems={(items: string[]) => dispatch(addItems({ category: props.category.id, items }))}
                     search={search}
                 />
             </GuiPanel>

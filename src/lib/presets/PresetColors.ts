@@ -1,5 +1,4 @@
 import { PresetType } from ".";
-import { getAllIDs } from "../MinecraftItems";
 
 const Preset: PresetType =
 {

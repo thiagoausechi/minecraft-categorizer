@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { MessageProps } from "./index";
 import Text from "../Text";
+import { MessageProps } from "./types";
 
 const TooltipDescription = styled.div<{ color?: string, firstLine: boolean }>`
     color: ${p => p.color || "white"};

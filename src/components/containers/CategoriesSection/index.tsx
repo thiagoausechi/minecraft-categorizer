@@ -1,19 +1,24 @@
 import styled from "styled-components";
 import { ChangeEvent, useState } from "react";
-import { Category } from "../../../lib/Categories.type";
+import { CategoryType } from "../../../lib/Categories.type";
 import { useAppSelector } from "../../../lib/hooks/useAppSelector.hook";
 import { consolidate } from "../../../lib/MinecraftItems";
-import { filterCategory, filterItem } from "../../../lib/search";
-import Button from "../../layout/Button";
+import { CATEGORY_TIPS, filterCategory, filterItem } from "../../../lib/search";
 
 import GuiPanel from "../../layout/GuiPanel";
-import Textbox from "../../layout/Textbox";
 import CategoryCard from "../Category";
 import CategoryModal from "../CategoryModal";
 import CategoryReorderCard from "../CategoryReorderCard";
 import Modal from "../Modal";
 import List from "./List";
 import Top from "./Top";
+
+import { ReorderIcon } from "../../layout/ClickableIcons/ReorderIcon";
+import { NewCategoryIcon } from "../../layout/ClickableIcons/NewCategoryIcon";
+import { CopyToClipboardIcon } from "../../layout/ClickableIcons/CopyToClipboardIcon";
+import { SavePresetIcon } from "../../layout/ClickableIcons/SavePresetIcon";
+import { isDevEnv } from "../../../lib/dev";
+import SearchBar from "../../layout/SearchBar";
 
 const CategoriesSection: React.FC = () => 
 {
@@ -26,10 +31,10 @@ const CategoriesSection: React.FC = () =>
     const [isReordering, setReordering] = useState(false);
     const toggleReordering = () => setReordering(!isReordering);
 
-    const [activeCategory, setActiveCategory] = useState<Category | {} | null>(null);
+    const [activeCategory, setActiveCategory] = useState<CategoryType | {} | null>(null);
     const closeModal = () => setActiveCategory(null);
     const openModal = () => setActiveCategory({});
-    const openEditModal = (c: Category) => setActiveCategory(c);
+    const openEditModal = (c: CategoryType) => setActiveCategory(c);
 
     // This part can be a little confusing, I know
     const filteredOrder = order.filter((e) =>
@@ -51,12 +56,16 @@ const CategoriesSection: React.FC = () =>
             <Wrapper>
                 <Top>
                     <div style={{ flexGrow: 1 }}>
-                        <Textbox type="text" value={searchText} placeholder="Search..." onChange={updateSearchText} />
+                        <SearchBar text={searchText} updateSearchText={updateSearchText} tips={CATEGORY_TIPS} />
                     </div>
-                    <div className="buttons">
-                        <Button title="Reorder" active={isReordering} onClick={toggleReordering} />
-                        <Button title="New Category" onClick={openModal} />
-                    </div>
+                    <Buttons>
+                        {!isDevEnv ? null :
+                            <CopyToClipboardIcon data={{ categories, categories_order: order }} />
+                        }
+                        <SavePresetIcon />
+                        <ReorderIcon activated={isReordering} onClick={toggleReordering} />
+                        <NewCategoryIcon activated={!!activeCategory} onClick={openModal} />
+                    </Buttons>
                 </Top>
 
                 {isReordering ?
@@ -100,13 +109,20 @@ const Wrapper = styled.div`
     @media screen and (max-width: 600px)
     {
         width: max(90vw, 268px);
-
-        .buttons
-        {
-            display: none;
-        }
     }
+`
 
+const Buttons = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-left: 8px;
+    align-items: center;
+
+    @media screen and (max-width: 600px)
+    {
+        display: none;
+    }
 `
 
 const AlertAddCategories = () => <h4>You can start by creating new categories!</h4>;

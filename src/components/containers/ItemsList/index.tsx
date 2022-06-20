@@ -1,37 +1,55 @@
 import { useDrop } from "react-dnd";
+
+import { ItemsListProps } from "./type";
+import { DragItemType } from "../ItemSlot/type";
+
+import { useAppDispatch } from "../../../lib/hooks/useAppDispatch.hook";
+import { update as updateSelectedItems } from "../../../store/slices/selectedItemsSlice";
+
 import { consolidate } from "../../../lib/MinecraftItems";
 import { filterItem } from "../../../lib/search";
-import Slot from "../../layout/Slot";
-import ItemSlot from "../ItemSlot";
+
 import List from "./List";
+import ItemSlot from "../ItemSlot";
+import Slot from "../../layout/Slot";
 
-interface Props
+const ItemsList: React.FC<ItemsListProps> = ({ list, context, addItems, search }) =>
 {
-    list: string[]
-    context: string
-    addItem: (item: string) => void
-    removeItem: (item: string) => void
-    search: string
-};
+    const dispatch = useAppDispatch();
 
-const ItemsList: React.FC<Props> = ({ list, context, addItem, removeItem, search }) =>
-{
-    const [, dropRef] = useDrop<{ id: string, context: string }, unknown, unknown>(() =>
+    const [, dropRef] = useDrop<DragItemType, unknown, unknown>(() =>
     ({
         accept: "ITEM",
-        canDrop: (item) => item.context !== context,
-        drop: ({ id }: { id: string }) => addItem(id)
+        canDrop: (item) => item.dragStack.findIndex(i => i.context === context) === -1,
+        drop: () => ({ addItems })
     }));
 
     const filtered = consolidate(list).filter((e) =>
     {
         if (!search || search === "") return e;
         return filterItem(e, search) ? e : null;
-    })
+    });
+
+    const handleItemSelection = (index: number, cmdkey: boolean, shiftKey: boolean) => 
+    {
+        dispatch(updateSelectedItems({
+            context,
+            list: filtered,
+            index,
+            cmdkey, shiftKey
+        }));
+    }
 
     return (
         <List ref={dropRef}>
-            {filtered.map(item => <ItemSlot key={item.id} item={item} context={context} removeItem={removeItem} />)}
+            {filtered.map((item, index) =>
+                <ItemSlot
+                    key={item.id}
+                    item={item}
+                    index={index}
+                    context={context}
+                    selectItem={handleItemSelection}
+                />)}
             {(search && search !== "") && filtered.length === 0 ? <NotFound /> : null}
             {list.length !== 0 ? null : (search && search !== "") ? null : <Slot />}
         </List>

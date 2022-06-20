@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { PresetButtomProps } from "./types";
 import { PresetType } from "../../../lib/presets";
 import { getItemById } from "../../../lib/MinecraftItems";
 
@@ -13,20 +14,18 @@ import Tooltiped from "../../layout/Tooltip/Tooltiped";
 import ItemFrameButton from "../../layout/ItemFrameButton";
 import ItemIcon from "../../layout/ItemIcon";
 
-interface Props
-{
-    preset: PresetType
-}
-
-const PresetButtom: React.FC<Props> = ({ preset }) =>
+const PresetButtom: React.FC<PresetButtomProps> = ({ preset }) =>
 {
     const dispatch = useAppDispatch();
     const [{ active, x, y }, setTooltip] = useState({ active: false, x: 0, y: 0 });
 
     const applyPreset = (preset: PresetType) =>
     {
-        dispatch(setCategories(preset.categories));
-        dispatch(updateOrder(preset.categories_order));
+        let loaded = null;
+        if (preset.load) loaded = preset.load();
+
+        dispatch(setCategories(loaded ? loaded.categories : preset.categories));
+        dispatch(updateOrder(loaded ? loaded.categories_order : preset.categories_order));
         !preset.uncategorized ? dispatch(fillRemaining()) :
             dispatch(updateUncategorized(preset.uncategorized));
     }

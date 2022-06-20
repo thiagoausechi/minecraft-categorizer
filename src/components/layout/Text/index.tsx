@@ -8,7 +8,6 @@ export interface TextType
     children: any
 }
 
-// TODO Pass this to a Styled Component?
 const Text: React.FC<TextType> = ({ italic, bold, children }) =>
     <Italic enabled={italic}>
         <Bold enabled={bold}>

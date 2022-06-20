@@ -1,15 +1,7 @@
 import Tooltip from ".";
-import { Item } from "../../../lib/MinecraftItems";
+import { ItemTooltipProps } from "./types";
 
-interface Props
-{
-    item: Item | null | undefined
-    active: boolean
-    x: number
-    y: number
-}
-
-const ItemTooltip: React.FC<Props> = ({ item, active, x, y }) => !item ? null :
+const ItemTooltip: React.FC<ItemTooltipProps> = ({ item, active, x, y }) => !item ? null :
     <Tooltip
         title={{ msg: item.name }}
         description={[

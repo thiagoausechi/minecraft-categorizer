@@ -1,14 +1,15 @@
 import { ChangeEvent, useState } from "react";
 
-import GuiPanel from "../../layout/GuiPanel";
-import Top from "../CategoriesSection/Top";
-import Textbox from "../../layout/Textbox";
-import ItemsList from "../ItemsList";
-import { useAppSelector } from "../../../lib/hooks/useAppSelector.hook";
-import { add, remove } from "../../../store/slices/uncategorizedSlice";
 import { useAppDispatch } from "../../../lib/hooks/useAppDispatch.hook";
-import styled from "styled-components";
-import { AppPanelsWidth } from "../../GlobalStyle";
+import { useAppSelector } from "../../../lib/hooks/useAppSelector.hook";
+import { add } from "../../../store/slices/uncategorizedSlice";
+
+import GuiPanel from "../../layout/GuiPanel";
+import Wrapper from "./Wrapper";
+import Top from "../CategoriesSection/Top";
+import ItemsList from "../ItemsList";
+import SearchBar from "../../layout/SearchBar";
+import { ITEM_TIPS } from "../../../lib/search";
 
 const ItemsSection: React.FC = () => 
 {
@@ -22,32 +23,17 @@ const ItemsSection: React.FC = () =>
     <GuiPanel title="Items" >
       <Wrapper>
         <Top>
-          <Textbox type="text" value={searchText} placeholder="Search..." onChange={updateSearchText} />
+          <SearchBar text={searchText} updateSearchText={updateSearchText} tips={ITEM_TIPS} />
         </Top>
         <ItemsList
           list={items}
-          addItem={(item: string) => dispatch(add(item))}
-          removeItem={(item: string) => dispatch(remove(item))}
-          context={"uncategorized"}
+          addItems={(items: string[]) => dispatch(add(items))}
+          context={{ origin: "UNCATEGORIZED" }}
           search={searchText}
         />
       </Wrapper>
     </GuiPanel>
   );
 }
-
-const Wrapper = styled.div`
-  width: max(20vw, 400px);
-
-  @media screen and (max-width: 1075px)
-  {
-    width: 510px;
-  }
-
-  @media screen and (max-width: 600px)
-  {
-    width: ${AppPanelsWidth};
-  }
-`
 
 export default ItemsSection;

@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
-import { Category } from "../../lib/Categories.type";
+import { CategoryType } from "../../lib/Categories.type";
+import { TypedObj } from "../../lib/global.type";
 import { getAllIDs, sortById } from "../../lib/MinecraftItems";
+import { read, write } from "../local";
 import { NAME as CATEGORIES } from "./categoriesSlice";
 
 interface UncategorizedState
@@ -14,9 +16,8 @@ export const NAME = "uncategorized";
 
 const initialState: UncategorizedState =
 {
-    // TODO Place this in another location
-    value: JSON.parse(localStorage.getItem(NAME) || "null") || [],
-    version: JSON.parse(localStorage.getItem('mc-version') || "null") || "1.18"
+    value: read(NAME, []),
+    version: read("mc-version", "")
 }
 
 export const uncategorizedSlice = createSlice({
@@ -24,34 +25,34 @@ export const uncategorizedSlice = createSlice({
     initialState,
     reducers:
     {
-        add: (state, { payload }: PayloadAction<string | string[]>) =>
-        { state.value = setItem(NAME, sortById([...state.value, ...payload])) },
+        add: (state, { payload }: PayloadAction<string[]>) =>
+        {
+            const newItems: string[] = [];
+            payload.forEach(item => !state.value.includes(item) ? newItems.push(item) : null);
+            state.value = write(NAME, sortById([...state.value, ...newItems]))
+        },
 
-        remove: (state, { payload }: PayloadAction<string>) =>
-        { state.value = setItem(NAME, state.value.filter(i => i !== payload)) },
+        remove: (state, { payload }: PayloadAction<string[]>) =>
+        { state.value = write(NAME, state.value.filter(i => !payload.includes(i))) },
 
         update: (state, { payload }: PayloadAction<string[]>) =>
-        { state.value = setItem(NAME, sortById(payload)) },
+        { state.value = write(NAME, sortById(payload)) },
 
         fill: (state) =>
         {
-            const categories: { [key: string]: Category } = JSON.parse(localStorage.getItem(CATEGORIES) || "{}");
+            const categories: TypedObj<CategoryType> = JSON.parse(localStorage.getItem(CATEGORIES) || "{}");
             const categorized: string[] = [];
 
             Object.keys(categories).forEach(key => categories[key].items.forEach(item => categorized.push(item)));
 
-            state.value = setItem(NAME, sortById(getAllIDs().filter(i => !categorized.includes(i))))
-        }
+            state.value = write(NAME, sortById(getAllIDs().filter(i => !categorized.includes(i))))
+        },
+
+        setVersion: (state, { payload }: PayloadAction<string>) =>
+        { state.version = write("mc-version", payload) }
     }
 });
 
-// TODO Place this in another location
-const setItem = (key: string, data: any) =>
-{
-    localStorage.setItem(key, JSON.stringify(data));
-    return data;
-}
-
-export const { add, remove, update, fill } = uncategorizedSlice.actions
+export const { add, remove, update, fill, setVersion } = uncategorizedSlice.actions
 export const selectUncategorized = (state: RootState) => state.uncategorized.value
 export default uncategorizedSlice.reducer

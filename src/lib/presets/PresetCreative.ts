@@ -28,8 +28,7 @@ const Preset: PresetType =
                 "minecraft:suspicious_stew",
                 "minecraft:jigsaw",
                 "minecraft:bundle",
-                "minecraft:light",
-                "minecraft:sculk_sensor"
+                "minecraft:light"
             ]
         },
         "Brewing": {
@@ -137,7 +136,8 @@ const Preset: PresetType =
                 "minecraft:netherite_hoe",
                 "minecraft:netherite_pickaxe",
                 "minecraft:netherite_shovel",
-                "minecraft:spyglass"
+                "minecraft:spyglass",
+                "minecraft:recovery_compass"
             ]
         },
         "Foodstuffs": {
@@ -374,7 +374,17 @@ const Preset: PresetType =
                 "minecraft:raw_copper",
                 "minecraft:raw_gold",
                 "minecraft:raw_iron",
-                "minecraft:music_disc_otherside"
+                "minecraft:music_disc_otherside",
+                "minecraft:disc_fragment_5",
+                "minecraft:music_disc_5",
+                "minecraft:echo_shard",
+                "minecraft:allay_spawn_egg",
+                "minecraft:frog_spawn_egg",
+                "minecraft:tadpole_spawn_egg",
+                "minecraft:warden_spawn_egg",
+                "minecraft:frogspawn",
+                "minecraft:tadpole_bucket",
+                "minecraft:goat_horn"
             ]
         },
         "Transportation": {
@@ -400,7 +410,15 @@ const Preset: PresetType =
                 "minecraft:dark_oak_boat",
                 "minecraft:carrot_on_a_stick",
                 "minecraft:elytra",
-                "minecraft:warped_fungus_on_a_stick"
+                "minecraft:warped_fungus_on_a_stick",
+                "minecraft:oak_chest_boat",
+                "minecraft:spruce_chest_boat",
+                "minecraft:birch_chest_boat",
+                "minecraft:jungle_chest_boat",
+                "minecraft:acacia_chest_boat",
+                "minecraft:dark_oak_chest_boat",
+                "minecraft:mangrove_chest_boat",
+                "minecraft:mangrove_boat"
             ]
         },
         "Redstone": {
@@ -478,7 +496,13 @@ const Preset: PresetType =
                 "minecraft:target",
                 "minecraft:polished_blackstone_button",
                 "minecraft:polished_blackstone_pressure_plate",
-                "minecraft:lightning_rod"
+                "minecraft:lightning_rod",
+                "minecraft:sculk_sensor",
+                "minecraft:mangrove_button",
+                "minecraft:mangrove_door",
+                "minecraft:mangrove_fence_gate",
+                "minecraft:mangrove_pressure_plate",
+                "minecraft:mangrove_trapdoor"
             ]
         },
         "Decoration Blocks": {
@@ -563,6 +587,7 @@ const Preset: PresetType =
                 "minecraft:enchanting_table",
                 "minecraft:end_portal_frame",
                 "minecraft:cobblestone_wall",
+                "minecraft:mossy_cobblestone_wall",
                 "minecraft:flower_pot",
                 "minecraft:anvil",
                 "minecraft:chipped_anvil",
@@ -713,6 +738,7 @@ const Preset: PresetType =
                 "minecraft:lantern",
                 "minecraft:lily_of_the_valley",
                 "minecraft:loom",
+                "minecraft:mossy_stone_brick_wall",
                 "minecraft:nether_brick_wall",
                 "minecraft:prismarine_wall",
                 "minecraft:red_nether_brick_wall",
@@ -788,7 +814,19 @@ const Preset: PresetType =
                 "minecraft:moss_block",
                 "minecraft:moss_carpet",
                 "minecraft:pointed_dripstone",
-                "minecraft:spore_blossom"
+                "minecraft:spore_blossom",
+                "minecraft:ochre_froglight",
+                "minecraft:pearlescent_froglight",
+                "minecraft:verdant_froglight",
+                "minecraft:sculk",
+                "minecraft:sculk_shrieker",
+                "minecraft:sculk_vein",
+                "minecraft:sculk_catalyst",
+                "minecraft:mangrove_fence",
+                "minecraft:mangrove_leaves",
+                "minecraft:mangrove_propagule",
+                "minecraft:mangrove_sign",
+                "minecraft:mud_brick_wall"
             ]
         },
         "Building blocks": {
@@ -956,7 +994,6 @@ const Preset: PresetType =
                 "minecraft:nether_bricks",
                 "minecraft:nether_brick_stairs",
                 "minecraft:end_stone",
-                "minecraft:mossy_cobblestone_wall",
                 "minecraft:white_terracotta",
                 "minecraft:orange_terracotta",
                 "minecraft:magenta_terracotta",
@@ -1051,7 +1088,6 @@ const Preset: PresetType =
                 "minecraft:mossy_cobblestone_stairs",
                 "minecraft:mossy_stone_brick_slab",
                 "minecraft:mossy_stone_brick_stairs",
-                "minecraft:mossy_stone_brick_wall",
                 "minecraft:polished_andesite_slab",
                 "minecraft:polished_andesite_stairs",
                 "minecraft:polished_diorite_slab",
@@ -1174,7 +1210,22 @@ const Preset: PresetType =
                 "minecraft:raw_iron_block",
                 "minecraft:rooted_dirt",
                 "minecraft:smooth_basalt",
-                "minecraft:tinted_glass"
+                "minecraft:tinted_glass",
+                "minecraft:reinforced_deepslate",
+                "minecraft:mangrove_log",
+                "minecraft:mangrove_planks",
+                "minecraft:mangrove_roots",
+                "minecraft:muddy_mangrove_roots",
+                "minecraft:mangrove_slab",
+                "minecraft:mangrove_stairs",
+                "minecraft:mangrove_wood",
+                "minecraft:stripped_mangrove_log",
+                "minecraft:stripped_mangrove_wood",
+                "minecraft:mud",
+                "minecraft:mud_brick_slab",
+                "minecraft:mud_brick_stairs",
+                "minecraft:mud_bricks",
+                "minecraft:packed_mud"
             ]
         }
     },

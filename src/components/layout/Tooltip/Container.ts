@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const Container = styled.div.attrs<{ x: number, y: number }>(p => ({
     style: {
-        top: p.y + 8,
-        left: p.x + 8
+        top: p.y,
+        left: p.x
     }
 })) <{ x: number, y: number }>`
     color: #FFF;

@@ -19,14 +19,26 @@ const Tab = styled.div`
     float: left;
     padding: 12px;
 
-    background-color: #c6c6c6;
-    border: 3px solid #000000;
-    border-bottom: 0px;
-    border-radius: 8px 8px 0px 0px;
+    background-color: #C6C6C6;
 
-    box-shadow: 
-        inset 3px 3px 0px 0px #FFFFFFAD,
-        inset -3px -3px 0px 0px #555555;
+    box-shadow:
+     4px  0px 0px 0px #555555,
+    -4px  0px 0px 0px #E8E8E8,
+    -2px -2px 0px 0px #E8E8E8,
+    -2px -4px 0px 0px #E8E8E8,
+    -4px -2px 0px 0px #E8E8E8,
+     0px -4px 0px 0px #E8E8E8,
+     0px  2px 0px 0px #C6C6C6,
+     0px  0px 0px 2px #B5B4B5,
+    -6px  0px 0px 0px #000000,
+    -6px -2px 0px 0px #000000,
+     6px  0px 0px 0px #000000,
+    -2px -6px 0px 0px #000000,
+     0px -6px 0px 0px #000000,
+    -4px -4px 0px 0px #000000,
+     2px -4px 0px 0px #000000,
+     4px -2px 0px 0px #000000,
+     4px -2px 0px 0px #000000;
 `;
 
 Card.TabHolder = TabHolder;

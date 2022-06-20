@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
-import { Category } from "../../../lib/Categories.type";
-import { getItemById, getAllIDs, Item } from "../../../lib/MinecraftItems";
+import { CategoryType } from "../../../lib/Categories.type";
+import { getItemById, ItemType } from "../../../lib/MinecraftItems";
 
 import GuiPanel from "../../layout/GuiPanel";
 import ItemIcon from "../../layout/ItemIcon";
@@ -19,7 +19,7 @@ import { add as refund } from "../../../store/slices/uncategorizedSlice";
 
 interface Props
 {
-    openedCategory: Category | {} | null
+    openedCategory: CategoryType | {} | null
     closeModal: () => void
 }
 
@@ -40,8 +40,8 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, closeModal }) =>
         setCategoryName(e.target.value);
     }
 
-    const [selectedIcon, setSelectedIcon] = useState<Item>(getItemById("minecraft:barrier"));
-    const setItemAsIcon = (item: Item) => { setSelectedIcon(item); setSearchText(item.id); }
+    const [selectedIcon, setSelectedIcon] = useState<ItemType>(getItemById("minecraft:barrier"));
+    const setItemAsIcon = (item: ItemType) => { setSelectedIcon(item); setSearchText(item.id); }
 
     const [searchText, setSearchText] = useState<string>("");
     const updateSearchText = (e: ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value);
@@ -54,16 +54,16 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, closeModal }) =>
         if (openedCategory && Object.keys(openedCategory).length > 0 && !modifing)
         {
             setModifing(true);
-            setCategoryName((openedCategory as Category).name);
-            setItemAsIcon(getItemById((openedCategory as Category).icon));
+            setCategoryName((openedCategory as CategoryType).name);
+            setItemAsIcon(getItemById((openedCategory as CategoryType).icon));
         }
     }, [modifing, setModifing, openedCategory, setCategoryName]);
 
     const deleteCategory = () =>
     {
-        dispatch(removeCategory((openedCategory as Category)));
-        dispatch(removeFromOrder((openedCategory as Category).id));
-        dispatch(refund((openedCategory as Category).items));
+        dispatch(removeCategory((openedCategory as CategoryType)));
+        dispatch(removeFromOrder((openedCategory as CategoryType).id));
+        dispatch(refund((openedCategory as CategoryType).items));
         closeModal();
     }
 
@@ -73,10 +73,10 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, closeModal }) =>
         {
             const category =
             {
-                id: !modifing ? uuidv4() : (openedCategory as Category).id,
+                id: !modifing ? uuidv4() : (openedCategory as CategoryType).id,
                 name: categoryName,
                 icon: selectedIcon.id,
-                items: !modifing ? [] : (openedCategory as Category).items
+                items: !modifing ? [] : (openedCategory as CategoryType).items
             }
 
             if (modifing) dispatch(updateCategory(category));
@@ -130,7 +130,7 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, closeModal }) =>
             <ModalSection>
                 {modifing && openedCategory ?
                     <div>
-                        {(openedCategory as Category).items.length} Items
+                        {(openedCategory as CategoryType).items.length} Items
                     </div>
                     :
                     <Checkbox
@@ -173,7 +173,7 @@ const Wrapper = styled.div`
     
     gap: 20px;
 
-    width: max(25vw, 340px);
+    width: 340px;
     height: 80vh;
 
     overflow: auto;
@@ -214,7 +214,7 @@ const ButtonsGrid = styled.div`
 `
 
 // TODO Remove this from here
-const ItemButton: React.FC<{ item: Item, setIcon: Function }> = ({ item, setIcon }) => 
+const ItemButton: React.FC<{ item: ItemType, setIcon: Function }> = ({ item, setIcon }) => 
 {
     return (
         <ItemFrameButton onClick={() => setIcon(item)}>

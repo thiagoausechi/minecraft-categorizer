@@ -13,9 +13,20 @@
   * If you find them, make sure to report!
 
 ## 🚀 Updates & Releases
+## v1.0.2
+- Added a "Tip Icon" at the end of the search bar
+- Added extra Items information for a better search result
+- Item Internal ID now matches with the official game ID
+- Improved Tooltip placement, now won't go outside the window
+
+## v1.0.1
+- Added 1.19 items
+- Updated "Creative Tabs Preset" to include all 1.19 items to their respective categories
+- Added Minecraft Version at the page's footer
+
 ## v1.0.0
 - First release!
-- Featuring Drag n'Drop
+- Featuring Drag n' Drop
   * You can drag an item from any source and drop it into another location
   * You can also select multiple items using SHIFT (sequential selection) or CTRL(win)/CMD(mac) to select in any order
   * Also works when reorganizing the categories list! (multiple selection not included.)

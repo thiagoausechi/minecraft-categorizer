@@ -32,11 +32,36 @@ const styles =
         right: "auto",
         bottom: "auto",
         marginRight: "-50%",
-        padding: "25px",
+        padding: "15px",
+        border: "0px",
+        borderRadius: "0px",
         backgroundColor: "#C6C6C6",
-        border: "5px solid #000000",
-        borderRadius: "15px",
-        boxShadow: "inset 5px 5px 0px 0px #FFFFFFAD, inset -5px -5px 0px 0px #555555",
+        boxShadow: "\
+         8px   0px 0px 0px #555555,\
+         0px   8px 0px 0px #555555,\
+         4px   4px 0px 0px #555555,\
+        -8px   0px 0px 0px #e8e8e8,\
+         0px  -8px 0px 0px #e8e8e8,\
+        -4px  -4px 0px 0px #e8e8e8,\
+         4px   8px 0px 0px #555555,\
+         8px   4px 0px 0px #555555,\
+        -4px  -8px 0px 0px #e8e8e8,\
+        -8px  -4px 0px 0px #e8e8e8,\
+         0px   0px 0px 4px #B5B4B5,\
+         8px  -4px 0px 0px #000000,\
+         4px  -8px 0px 0px #000000,\
+        -8px   4px 0px 0px #000000,\
+        -4px   8px 0px 0px #000000,\
+        -8px  -8px 0px 0px #000000,\
+         8px   8px 0px 0px #000000,\
+        -12px  0px 0px 0px #000000,\
+        -12px -4px 0px 0px #000000,\
+         12px  0px 0px 0px #000000,\
+         12px  4px 0px 0px #000000,\
+         0px -12px 0px 0px #000000,\
+        -4px -12px 0px 0px #000000,\
+         0px  12px 0px 0px #000000,\
+         4px  12px 0px 0px #000000",
         transform: "translate(-50%, -50%)"
     }
 };
