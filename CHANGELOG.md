@@ -9,7 +9,7 @@
 
 ## 🔨 Known Issues
 You can see all known issue [here](https://github.com/thiagoausechi/minecraft-categorizer/issues).
-Make sure to report any eventual issue you have experienced. Or leave a suggestion so I can improve you experience.
+Make sure to report any eventual issue you have experienced. Or leave a feature suggestion so I can improve your experience.
 
 ## 🚀 Updates & Releases
 ## v1.0.2
