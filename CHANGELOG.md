@@ -8,9 +8,8 @@
   * For even more customization, you'll be able to sort out the categories in groups
 
 ## 🔨 Known Issues
-- Z-E-R-O 😱
-- But I'm pretty sure there's some bug somewhere
-  * If you find them, make sure to report!
+You can see all known issue [here](https://github.com/thiagoausechi/minecraft-categorizer/issues).
+Make sure to report any eventual issue you have experienced. Or leave a suggestion so I can improve you experience.
 
 ## 🚀 Updates & Releases
 ## v1.0.2

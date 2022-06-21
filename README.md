@@ -9,6 +9,8 @@ The concept is very simple and the execution even more so! Just start by creatin
 In this project, I didn't just look for functionality, but also aesthetically improve the information presented, using the visual identity of one of the most beloved bloocky-games of the last decade, [Minecraft](https://minecraft.net/)!
 
 I still have a lot of plans for this project, like a way for you to save and share your categorization with your friends! Which will be very useful for you to use on that server that is always zoned with chests monster.
+
+For more information about the site features, changes, and what's to come, check out the [Changelog](https://github.com/thiagoausechi/minecraft-categorizer/blob/master/CHANGELOG.md) page.
 <br>
 
 # <p align='center'><img src="https://github.com/undrfined/mc-icons/blob/master/pics/278_Diamond%20Pickaxe.png?raw=true" width="30" /> Tools</p>
