@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import useTooltip from "../../../lib/hooks/useTooltip.hook";
 import Clickable from "../Clickable";
 import Tooltip from "../Tooltip";
 import Tooltiped from "../Tooltip/Tooltiped";
@@ -16,7 +17,7 @@ interface Props
 
 const ClickableIcon: React.FC<Props> = ({ title, icon, hover, active, activated, onClick }) => 
 {
-    const [{ active: tooltipOn, x, y }, setTooltip] = useState({ active: false, x: 0, y: 0 });
+    const [{ active: tooltipOn, x, y }, setTooltip] = useTooltip();
     const [hovering, setHovering] = useState(false);
 
     const IconElement = activated ? <Icon src={active} alt={title} /> :

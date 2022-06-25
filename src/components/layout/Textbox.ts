@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
 const Textbox = styled.input<any>`
-    background-color: #cfcfcf;
-    font-family: 'Minecraft';
+    font-family: MinecraftiaRegular, Minecraft;
+    height: 35px;
     padding: 9px;
+
     border: none;
+    background-color: #cfcfcf;
     box-shadow:
     inset 3px 3px 0px 0px #555,
     inset -3px -3px 0px 0px #ffffffad;

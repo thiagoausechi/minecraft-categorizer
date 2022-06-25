@@ -18,16 +18,18 @@ export interface PresetType
     uncategorized: string[] | null
     categories: TypedObj<CategoryType>
     categories_order: string[]
+    checked_items?: string[]
 
     // If the preset needs to load data from another place
     // This action will OVERRIDE any data presented above
     load?: () => {
         categories: TypedObj<CategoryType>,
         categories_order: string[]
+        checked_items?: string[]
     }
 }
 
-const DEV_PRESETS: PresetType[]     = [PresetNv0, PresetDummy];
+const DEV_PRESETS: PresetType[] = [PresetNv0, PresetDummy];
 const DEFAULT_PRESETS: PresetType[] = [PresetUser, PresetClear, PresetColors, PresetCreative];
 
-export const PRESETS: PresetType[]  = isDevEnv ? [...DEV_PRESETS, ...DEFAULT_PRESETS] : DEFAULT_PRESETS;
+export const PRESETS: PresetType[] = isDevEnv ? [...DEV_PRESETS, ...DEFAULT_PRESETS] : DEFAULT_PRESETS;

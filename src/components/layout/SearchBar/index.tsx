@@ -1,8 +1,12 @@
-import { useState } from "react";
-import styled from "styled-components";
-import Textbox from "./Textbox";
-import Tooltip from "./Tooltip";
-import Tooltiped from "./Tooltip/Tooltiped";
+import useTooltip from "../../../lib/hooks/useTooltip.hook";
+
+import Tooltip from "../Tooltip";
+import Tooltiped from "../Tooltip/Tooltiped";
+
+import Control from "./Control";
+import Label from "./Label";
+import Textbox from "../Textbox";
+import Tip from "./Tip";
 
 interface Props
 {
@@ -13,7 +17,7 @@ interface Props
 
 const SearchBar: React.FC<Props> = ({ text, updateSearchText, tips }) =>
 {
-    const [{ active, x, y }, setTooltip] = useState({ active: false, x: 0, y: 0 });
+    const [{ active, x, y }, setTooltip] = useTooltip();
 
     return (
         <Control>
@@ -37,34 +41,5 @@ const SearchBar: React.FC<Props> = ({ text, updateSearchText, tips }) =>
         </Control>
     );
 }
-
-const Control = styled.label`
-    position: relative;
-
-    width: -webkit-fill-available;
-    width: fill-available;
-`
-
-const Label = styled.label`
-    & > ${Textbox}
-    {
-        width: 100%;
-    }
-`
-
-const Tip = styled.div`
-    position: absolute;
-    top: 2px;
-    right: 15px;
-
-    color: #8B8B8B;
-
-    &:hover
-    {
-        color: white;
-    }
-
-    cursor: pointer;
-`
 
 export default SearchBar;

@@ -5,7 +5,7 @@ export interface ItemSlotProps
     item: ItemType
     index: number
     context: ContextType
-    selectItem: (index: number, cmdkey: boolean, shiftKey: boolean) => void
+    selectItem: (index: number, type: string, cmdkey: boolean, shiftKey: boolean) => void
 }
 
 export interface ContextType

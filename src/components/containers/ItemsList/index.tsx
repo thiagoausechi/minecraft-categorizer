@@ -30,12 +30,13 @@ const ItemsList: React.FC<ItemsListProps> = ({ list, context, addItems, search }
         return filterItem(e, search) ? e : null;
     });
 
-    const handleItemSelection = (index: number, cmdkey: boolean, shiftKey: boolean) => 
+    const handleItemSelection = (index: number, clickType: string, cmdkey: boolean, shiftKey: boolean) => 
     {
         dispatch(updateSelectedItems({
             context,
             list: filtered,
             index,
+            clickType,
             cmdkey, shiftKey
         }));
     }
@@ -49,9 +50,10 @@ const ItemsList: React.FC<ItemsListProps> = ({ list, context, addItems, search }
                     index={index}
                     context={context}
                     selectItem={handleItemSelection}
-                />)}
+                />
+            )}
             {(search && search !== "") && filtered.length === 0 ? <NotFound /> : null}
-            {list.length !== 0 ? null : (search && search !== "") ? null : <Slot />}
+            {list.length !== 0 ? null : (search && search !== "") ? null : <Slot empty={true} />}
         </List>
     );
 }

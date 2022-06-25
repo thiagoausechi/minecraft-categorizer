@@ -10,8 +10,8 @@ const Preset: PresetType =
     categories_order: [],
     load: () =>
     {
-        const { categories, order } = read("user_preset", { categories: {}, order: [] });
-        return { categories, categories_order: order };
+        const { categories, order, checkedItems } = read("user_preset", { categories: {}, order: [], checkedItems: [] });
+        return { categories, categories_order: order, checked_items: checkedItems };
     }
 }
 

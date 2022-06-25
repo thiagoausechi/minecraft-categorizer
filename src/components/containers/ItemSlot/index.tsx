@@ -1,15 +1,12 @@
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useEffect } from "react";
 import { isMacOs } from "react-device-detect";
 import { useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { useAppDispatch } from "../../../lib/hooks/useAppDispatch.hook";
 import { useAppSelector } from "../../../lib/hooks/useAppSelector.hook";
 
-import { clear } from "../../../store/slices/selectedItemsSlice";
-import { removeItems as removeItemsFrom } from "../../../store/slices/categoriesSlice";
-import { remove as refund } from "../../../store/slices/uncategorizedSlice";
+import { clear, removeItemsFromContext } from "../../../store/slices/selectedItemsSlice";
 
-import { TypedObj } from "../../../lib/global.type";
 import { DragItemType, DragStackType, ItemSlotProps } from "./type";
 
 import Control from "./Control";
@@ -17,13 +14,15 @@ import Tooltiped from "../../layout/Tooltip/Tooltiped";
 import ItemTooltip from "../../layout/Tooltip/ItemTooltip";
 import ItemIcon from "../../layout/ItemIcon";
 import Slot from "../../layout/Slot";
+import useTooltip from "../../../lib/hooks/useTooltip.hook";
 
 const ItemSlot: React.FC<ItemSlotProps> = ({ item, index, context, selectItem }) => 
 {
+    const [{ active, x, y }, setTooltip] = useTooltip();
+
     const dispatch = useAppDispatch();
     const selectedItems = useAppSelector(state => state.selectedItems.list);
-
-    const [{ active, x, y }, setTooltip] = useState({ active: false, x: 0, y: 0 });
+    const checkedItems = useAppSelector(state => state.checkedItems.value);
 
     const [{ isDragging }, dragRef, preview] = useDrag<DragItemType, unknown, { isDragging: boolean }>(() => ({
         type: "ITEM",
@@ -46,27 +45,16 @@ const ItemSlot: React.FC<ItemSlotProps> = ({ item, index, context, selectItem })
         {
             if (!monitor.didDrop()) return;
 
-            const removed = {
-                categories: {} as TypedObj<string[]>,
-                uncategorized: [] as string[]
-            };
-
-            dragStack.forEach(({ context, id }) => context.reference ?
-                (removed.categories[context.reference] ?
-                    removed.categories[context.reference].push(id) : removed.categories[context.reference] = [id]) :
-                (removed.uncategorized.push(id)))
-
-            Object.keys(removed.categories).forEach(key =>
-                dispatch(removeItemsFrom({ category: key, items: removed.categories[key] })));
-            dispatch(refund(removed.uncategorized));
-            dispatch(clear());
-
+            removeItemsFromContext(dragStack, dispatch);
             (monitor.getDropResult() as { addItems: (item: string[]) => void })
                 .addItems(dragStack.map(i => i.id));
         }
     }), [selectedItems]);
 
-    const handleClick = (e: MouseEvent) => selectItem(index, isMacOs ? e.metaKey : e.ctrlKey, e.shiftKey);
+    const handleClick = (e: MouseEvent) => 
+    {
+        selectItem(index, e.type, isMacOs ? e.metaKey : e.ctrlKey, e.shiftKey);
+    }
 
     useEffect(() => 
     {
@@ -75,16 +63,17 @@ const ItemSlot: React.FC<ItemSlotProps> = ({ item, index, context, selectItem })
         })
     }, [preview]);
 
+    const isSelected = !!selectedItems.find(i => i.id === item.id);
+
     return (
         <Tooltiped setTooltip={setTooltip}>
-            <Control ref={dragRef} onClick={handleClick} >
-
+            <Control ref={dragRef} onClick={handleClick} onContextMenu={handleClick} >
                 <div style={{ opacity: isDragging ? 0 : 1 }}>
                     <ItemIcon texture={item.texture} name={item.name} />
                     <ItemTooltip item={item} active={active} x={x} y={y} />
                 </div>
 
-                <Slot selected={!!selectedItems.find(i => i.id === item.id)} />
+                <Slot selected={isSelected} checked={checkedItems.includes(item.id)} empty={isSelected && isDragging} />
             </Control>
         </Tooltiped>
     );

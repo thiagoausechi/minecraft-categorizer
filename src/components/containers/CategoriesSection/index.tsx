@@ -6,7 +6,7 @@ import { consolidate } from "../../../lib/MinecraftItems";
 import { CATEGORY_TIPS, filterCategory, filterItem } from "../../../lib/search";
 
 import GuiPanel from "../../layout/GuiPanel";
-import CategoryCard from "../Category";
+import CategoryCard from "../CategoryCard";
 import CategoryModal from "../CategoryModal";
 import CategoryReorderCard from "../CategoryReorderCard";
 import Modal from "../Modal";
@@ -69,16 +69,22 @@ const CategoriesSection: React.FC = () =>
                 </Top>
 
                 {isReordering ?
-                    <List>
-                        {order.length <= 1 ? <AlertMoreCategories /> :
-                            order.map((key, index) =>
-                                <CategoryReorderCard
-                                    key={key}
-                                    index={index}
-                                    category={categories[key]}
-                                    openEditModal={openEditModal}
-                                />)}
-                    </List>
+                    <div>
+                        <List>
+                            {order.length <= 1 ? <AlertMoreCategories /> :
+                                order.map((key, index) =>
+                                    <CategoryReorderCard
+                                        key={key}
+                                        index={index}
+                                        category={categories[key]}
+                                        openEditModal={openEditModal}
+                                    />
+                                )}
+                        </List>
+                        <h3 style={{ textAlign: 'center' }}>
+                            Total of {order.length} categories
+                        </h3>
+                    </div>
                     :
                     <List>
                         {filteredOrder.map(key =>

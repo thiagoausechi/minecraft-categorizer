@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { PresetButtomProps } from "./types";
 import { PresetType } from "../../../lib/presets";
 import { getItemById } from "../../../lib/MinecraftItems";
@@ -13,11 +11,13 @@ import Tooltip from "../../layout/Tooltip";
 import Tooltiped from "../../layout/Tooltip/Tooltiped";
 import ItemFrameButton from "../../layout/ItemFrameButton";
 import ItemIcon from "../../layout/ItemIcon";
+import useTooltip from "../../../lib/hooks/useTooltip.hook";
+import { add as checkItems, clear as uncheckAll } from "../../../store/slices/checkedItemsSlice";
 
 const PresetButtom: React.FC<PresetButtomProps> = ({ preset }) =>
 {
     const dispatch = useAppDispatch();
-    const [{ active, x, y }, setTooltip] = useState({ active: false, x: 0, y: 0 });
+    const [{ active, x, y }, setTooltip] = useTooltip();
 
     const applyPreset = (preset: PresetType) =>
     {
@@ -28,6 +28,10 @@ const PresetButtom: React.FC<PresetButtomProps> = ({ preset }) =>
         dispatch(updateOrder(loaded ? loaded.categories_order : preset.categories_order));
         !preset.uncategorized ? dispatch(fillRemaining()) :
             dispatch(updateUncategorized(preset.uncategorized));
+
+        dispatch(uncheckAll());
+        const checkedItems = loaded ? loaded.checked_items : preset.checked_items;
+        if (checkedItems) dispatch(checkItems(checkedItems));
     }
 
     return (

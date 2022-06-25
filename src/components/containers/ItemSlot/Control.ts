@@ -8,7 +8,7 @@ const Control = styled.span`
 
     cursor: grab;
 
-    &:hover, ${ItemIcon.Icon}:hover + ${Slot}
+    img:hover, ${ItemIcon.Icon}:hover + ${Slot}
     {
         background-color: #FFFFFF66;
     }

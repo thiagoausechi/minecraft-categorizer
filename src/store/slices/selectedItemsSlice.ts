@@ -2,7 +2,11 @@ import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
 
 import { ContextType, DragStackType } from "../../components/containers/ItemSlot/type";
+import { TypedObj } from "../../lib/global.type";
 import { ItemType } from "../../lib/MinecraftItems";
+
+import { removeItems as removeFromCategory } from "./categoriesSlice";
+import { remove as removeFromUncategorized } from "./uncategorizedSlice";
 
 export const NAME = "selected_items";
 
@@ -21,6 +25,7 @@ export interface UpdatePayload
     context: ContextType
     list: ItemType[]
     index: number
+    clickType: string
     cmdkey: boolean
     shiftKey: boolean
 }
@@ -44,13 +49,15 @@ export const selectedItemsSlice = createSlice({
             state.lastIndex = initialState.lastIndex;
         },
 
-        update: (state, { payload: { context, list, index, cmdkey, shiftKey } }: PayloadAction<UpdatePayload>) =>
+        update: (state, { payload: { context, list, index, clickType, cmdkey, shiftKey } }: PayloadAction<UpdatePayload>) =>
         {
             const { list: selectedItems, lastIndex, lastContext } = current(state);
             let newSelectedList = selectedItems.concat();
             const selected = index < 0 ? { id: "null", context: { origin: "" } as ContextType } : { id: list[index].id, context };
 
-            if (!cmdkey && !shiftKey)
+            if (clickType === "contextmenu" && selectedItems.find(i => i.id === selected.id)) { }
+
+            else if (!cmdkey && !shiftKey)
             {
                 newSelectedList = [selected];
                 if (selectedItems.length === 1 && selectedItems.find(i => i.id === selected.id)) newSelectedList = [];
@@ -79,6 +86,31 @@ export const selectedItemsSlice = createSlice({
         }
     }
 });
+
+export const removeItemsFromContext = (list: DragStackType[], dispatch: Function) => 
+{
+    const removed = parseContext(list);
+
+    Object.keys(removed.categories).forEach(key =>
+        dispatch(removeFromCategory({ category: key, items: removed.categories[key] })));
+    dispatch(removeFromUncategorized(removed.uncategorized));
+    dispatch(clear());
+}
+
+export const parseContext = (list: DragStackType[]): { categories: TypedObj<string[]>, uncategorized: string[] } => 
+{
+    const result = {
+        categories: {} as TypedObj<string[]>,
+        uncategorized: [] as string[]
+    };
+
+    list.forEach(({ context, id }) => context.reference ?
+        (result.categories[context.reference] ?
+            result.categories[context.reference].push(id) : result.categories[context.reference] = [id]) :
+        (result.uncategorized.push(id)))
+
+    return result;
+}
 
 export const { clear, update } = selectedItemsSlice.actions
 export const selectSelectedItems = (state: RootState) => state.selectedItems

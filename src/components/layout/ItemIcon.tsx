@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { Missingno } from "../../lib/MinecraftItems";
-
 interface Props
 {
     texture: string | null
@@ -29,9 +27,8 @@ const Icon = styled.img<StyleProps>`
 
 const ItemIcon = ({ texture, name, size = 32, inSlot = true }: Props) =>
 {
-    return texture && name ?
-        <Icon src={texture} alt={`${name} Icon`} size={size} inSlot={inSlot} /> :
-        <Icon src={Missingno} alt={"Missing Icon"} size={size} inSlot={inSlot} />;
+    return !(texture && name) ? null :
+        <Icon src={texture} alt={`${name} Icon`} size={size} inSlot={inSlot} />;
 }
 
 ItemIcon.Icon = Icon;

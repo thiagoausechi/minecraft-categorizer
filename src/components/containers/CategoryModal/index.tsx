@@ -1,21 +1,23 @@
-import styled from "styled-components";
-
 import { v4 as uuidv4 } from "uuid";
 
 import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
 import { CategoryType } from "../../../lib/Categories.type";
 import { getItemById, ItemType } from "../../../lib/MinecraftItems";
 
-import GuiPanel from "../../layout/GuiPanel";
-import ItemIcon from "../../layout/ItemIcon";
-import ItemFrameButton from "../../layout/ItemFrameButton";
-import Button from "../../layout/Button";
-import Textbox from "../../layout/Textbox";
-import Checkbox from "../../layout/Checkbox";
 import { add as addCategory, remove as removeCategory, update as updateCategory } from "../../../store/slices/categoriesSlice";
 import { add as addToOrder, remove as removeFromOrder } from "../../../store/slices/orderSlice";
 import { useAppDispatch } from "../../../lib/hooks/useAppDispatch.hook";
 import { add as refund } from "../../../store/slices/uncategorizedSlice";
+
+import GuiPanel from "../../layout/GuiPanel";
+import Wrapper from "./Wrapper";
+import Section from "./Section";
+import ItemIcon from "../../layout/ItemIcon";
+import ButtonsWrapper from "./ButtonsWrapper";
+import Button from "../../layout/Button";
+import Textbox from "../../layout/Textbox";
+import Checkbox from "../../layout/Checkbox";
+import ItemButton from "./ItemButton";
 
 interface Props
 {
@@ -90,11 +92,12 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, closeModal }) =>
         else setError(true);
     };
 
+    // TODO Refactor the sections piece
     return (
         <Wrapper>
             <h2>{modifing ? "Modifing" : "Creating"} a Category</h2>
 
-            <ModalSection>
+            <Section>
                 <h3>Choose the Name</h3>
                 <Textbox
                     type="text"
@@ -102,9 +105,9 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, closeModal }) =>
                     error={error}
                     onChange={updateCategoryName}
                 />
-            </ModalSection>
+            </Section>
 
-            <ModalSection>
+            <Section>
                 <h3>Choose an Icon</h3>
                 <GuiPanel>
                     <ItemIcon texture={selectedIcon.texture} name={selectedIcon.name} size={50} inSlot={false} />
@@ -118,16 +121,18 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, closeModal }) =>
                     onKeyDown={locateItem}
                 />
 
-                <ButtonsGrid>
-                    {IconsPreset.map(preset => <ItemButton
-                        key={preset}
-                        item={getItemById(`minecraft:${preset}`)}
-                        setIcon={setItemAsIcon}
-                    />)}
-                </ButtonsGrid>
-            </ModalSection>
+                <ButtonsWrapper.Grid>
+                    {IconsPreset.map(preset =>
+                        <ItemButton
+                            key={preset}
+                            item={getItemById(`minecraft:${preset}`)}
+                            setIcon={setItemAsIcon}
+                        />
+                    )}
+                </ButtonsWrapper.Grid>
+            </Section>
 
-            <ModalSection>
+            <Section>
                 {modifing && openedCategory ?
                     <div>
                         {(openedCategory as CategoryType).items.length} Items
@@ -139,7 +144,7 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, closeModal }) =>
                         onChange={toggleAddLast}
                     />
                 }
-            </ModalSection>
+            </Section>
 
             <ButtonsWrapper>
                 <Button title="Back" onClick={closeModal} />
@@ -152,75 +157,11 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, closeModal }) =>
     );
 }
 
-// TODO Remove this from here
 const IconsPreset = [
     "barrier", "grass_block", "bricks", "peony",
     "redstone", "powered_rail", "lava_bucket", "apple",
     "iron_axe", "golden_sword", "potion", "stick"
 
 ]
-const ButtonsWrapper = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 5px;
-`
-
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    gap: 20px;
-
-    width: 340px;
-    height: 80vh;
-
-    overflow: auto;
-
-    h2
-    {
-        margin-block-start: 7px;
-        margin-block-end: 7px;
-    }
-
-    @media screen and (max-width: 1075px)
-    {
-    }
-`
-
-const ModalSection = styled.div`
-    width: fit-content;
-
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    gap: 14px;
-
-    h3
-    {
-        border-bottom: 2px solid #404040;
-        margin-block: 0px;
-    }
-`
-
-// TODO Remove this from here
-const ButtonsGrid = styled.div`
-    display: grid;
-    width: fit-content;
-
-    grid-template-columns: auto auto auto auto;
-    gap: 5px
-`
-
-// TODO Remove this from here
-const ItemButton: React.FC<{ item: ItemType, setIcon: Function }> = ({ item, setIcon }) => 
-{
-    return (
-        <ItemFrameButton onClick={() => setIcon(item)}>
-            <ItemIcon texture={item.texture} name={item.name} size={30} inSlot={false} />
-        </ItemFrameButton>
-    );
-}
 
 export default CategoryModal;

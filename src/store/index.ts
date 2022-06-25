@@ -4,13 +4,15 @@ import uncategorizedReducer from "./slices/uncategorizedSlice";
 import categoriesReducer from "./slices/categoriesSlice";
 import orderReducer from "./slices/orderSlice";
 import selectedItemsReducer from "./slices/selectedItemsSlice";
+import checkedItemsReducer from "./slices/checkedItemsSlice";
 
 const store = configureStore({
     reducer: {
         uncategorized: uncategorizedReducer,
         categories: categoriesReducer,
         order: orderReducer,
-        selectedItems: selectedItemsReducer
+        selectedItems: selectedItemsReducer,
+        checkedItems: checkedItemsReducer
     },
 })
 

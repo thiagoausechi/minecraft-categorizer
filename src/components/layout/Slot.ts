@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-const Slot = styled.div<{ selected?: boolean }>`
+import Check from "../../assets/img/check.png";
+
+const Slot = styled.div<{ selected?: boolean, empty?: boolean, checked?: boolean }>`
     display: block;
 
     background-color: ${p => p.selected ? "#8B2929" : "#8B8B8B"};
@@ -14,7 +16,22 @@ const Slot = styled.div<{ selected?: boolean }>`
 
     &:hover
     {
-        background-color: #FFFFFF66;
+        background-color: ${p => p.empty ? "#FFFFFF66" : ""};
+    }
+
+    &:after
+    {
+        content: "";
+        display: ${p => p.checked && !p.empty ? "block" : "none"};
+        background-image: url(${Check});
+        background-size: 24px 24px;
+        background-repeat: no-repeat;
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        pointer-events: none;
     }
 `;
 

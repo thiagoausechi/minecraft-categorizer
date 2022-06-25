@@ -8,6 +8,7 @@ import CategoriesSection from "../components/containers/CategoriesSection";
 import RightColumn from "../components/pages/App/RightColumn";
 import ItemsSection from "../components/containers/ItemsSection";
 import PresetsSection from "../components/containers/PresetsSection";
+import ContextMenu from "../components/function/ContextMenu";
 
 const App: React.FC = () =>
 {
@@ -15,6 +16,7 @@ const App: React.FC = () =>
     <DndProvider backend={HTML5Backend}>
       <CheckUpdates />
       <ItemsDragLayer />
+      <ContextMenu />
       <Wrapper>
         <CategoriesSection />
         <aside>

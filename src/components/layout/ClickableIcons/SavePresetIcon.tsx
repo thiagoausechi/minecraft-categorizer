@@ -9,6 +9,9 @@ export const SavePresetIcon: React.FC = () =>
 {
     const categories = useAppSelector(state => state.categories.value);
     const order = useAppSelector(state => state.order.value);
+    const checkedItems = useAppSelector(state => state.checkedItems.value);
+
+    const preset = { categories, order, checkedItems };
 
     return <ClickableIcon
         title="Save Configuration as Preset"
@@ -16,6 +19,6 @@ export const SavePresetIcon: React.FC = () =>
         hover={Hover}
         active={Icon}
         activated={false}
-        onClick={() => write("user_preset", { categories, order })}
+        onClick={() => write("user_preset", preset)}
     />
 }

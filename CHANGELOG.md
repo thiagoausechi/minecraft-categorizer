@@ -12,6 +12,21 @@ You can see all known issue [here](https://github.com/thiagoausechi/minecraft-ca
 Make sure to report any eventual issue you have experienced. Or leave a suggestion so I can improve you experience.
 
 ## 🚀 Updates & Releases
+## v1.0.3
+- Added Context Menu/Right Click
+  * You can move items easily by choosing the categories under the "Move to" option
+  * Use the Context Menu to check/unchek items. See more below
+  * "Refund" will move all selected items from their respective categories to the "Items" list
+- Added the "Check Items" functionality
+  * All checked items must be in a category
+  * All checked items will be saved and loaded with the User Preset
+  * We have no opinion on what the checked items might mean to the user
+  * It's just an aesthetic reference, like a flag or marking
+  * Eg.: You can use it to know which items are already properly placed in the in-game categorizer
+- Added a total number of categories when "Reordering Mode" is enabled
+- Fixed a visual inconsistent when hovering an item slot
+- Fixed a critical bugerror that incorrectly overwritten all category information
+
 ## v1.0.2
 - Added a "Tip Icon" at the end of the search bar
 - Added extra Items information for a better search result
