@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/minecraft-categorizer/static/css/main.31ef349a.css",
-    "main.js": "/minecraft-categorizer/static/js/main.26c5a555.js",
+    "main.css": "/minecraft-categorizer/static/css/main.beaede26.css",
+    "main.js": "/minecraft-categorizer/static/js/main.5df2c630.js",
     "static/media/title.png": "/minecraft-categorizer/static/media/title.71369e61e0b0a0883cd5.png",
     "static/media/herobrine.png": "/minecraft-categorizer/static/media/herobrine.ded44b95d6f14fefead3.png",
     "static/media/Minecraft.woff": "/minecraft-categorizer/static/media/Minecraft.4afaad98dacce11bbea3.woff",
     "index.html": "/minecraft-categorizer/index.html",
-    "main.31ef349a.css.map": "/minecraft-categorizer/static/css/main.31ef349a.css.map",
-    "main.26c5a555.js.map": "/minecraft-categorizer/static/js/main.26c5a555.js.map"
+    "main.beaede26.css.map": "/minecraft-categorizer/static/css/main.beaede26.css.map",
+    "main.5df2c630.js.map": "/minecraft-categorizer/static/js/main.5df2c630.js.map"
   },
   "entrypoints": [
-    "static/css/main.31ef349a.css",
-    "static/js/main.26c5a555.js"
+    "static/css/main.beaede26.css",
+    "static/js/main.5df2c630.js"
   ]
 }
