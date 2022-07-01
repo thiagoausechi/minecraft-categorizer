@@ -4,6 +4,7 @@ import { useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { useAppDispatch } from "../../../lib/hooks/useAppDispatch.hook";
 import { useAppSelector } from "../../../lib/hooks/useAppSelector.hook";
+import useTooltip from "../../../lib/hooks/useTooltip.hook";
 
 import { clear, removeItemsFromContext } from "../../../store/slices/selectedItemsSlice";
 
@@ -14,11 +15,10 @@ import Tooltiped from "../../layout/Tooltip/Tooltiped";
 import ItemTooltip from "../../layout/Tooltip/ItemTooltip";
 import ItemIcon from "../../layout/ItemIcon";
 import Slot from "../../layout/Slot";
-import useTooltip from "../../../lib/hooks/useTooltip.hook";
 
 const ItemSlot: React.FC<ItemSlotProps> = ({ item, index, context, selectItem }) => 
 {
-    const [{ active, x, y }, setTooltip] = useTooltip();
+    const { state: { active, x, y }, setTooltip } = useTooltip();
 
     const dispatch = useAppDispatch();
     const selectedItems = useAppSelector(state => state.selectedItems.list);

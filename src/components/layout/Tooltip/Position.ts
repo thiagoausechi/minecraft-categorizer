@@ -1,8 +1,11 @@
 import { GetPositionProps } from "./types";
 
-export const getPosition: GetPositionProps = (ref, mouseX, mouseY, vw, vh) =>
+export const getPosition: GetPositionProps = (ref, mouseX, mouseY) =>
 {
     if (!ref.current) return { active: false, x: 0, y: 0 };
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
 
     const tipWidth  = ref.current.clientWidth;
     const tipHeight = ref.current.clientHeight;

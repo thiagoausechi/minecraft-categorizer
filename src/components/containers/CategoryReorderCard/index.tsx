@@ -57,7 +57,7 @@ const CategoryReorderCard: React.FC<Props> = (props) =>
             <Wrapper ref={ref} data-handler-id={handlerId}>
                 <Clickable onClick={() => openEditModal(props.category)}>
                     <GuiPanel>
-                        <ItemIcon texture={getItemById(icon).texture} name={name} size={30} inSlot={false} />
+                        <ItemIcon texture={getItemById(icon).texture} name={name} inSlot={false} />
                     </GuiPanel>
                 </Clickable>
 

@@ -14,6 +14,12 @@ export interface TooltipState
     y: number
 }
 
+export interface TooltipHookProps
+{
+    state: TooltipState
+    setTooltip: React.Dispatch<React.SetStateAction<TooltipState>>
+}
+
 export interface TooltipProps extends TooltipState
 {
     title: MessageProps
@@ -25,9 +31,7 @@ export interface GetPositionProps
     (
         ref: React.MutableRefObject<any>,
         mouseX: number,
-        mouseY: number,
-        vw: number,
-        vh: number,
+        mouseY: number
     ): TooltipState
 }
 

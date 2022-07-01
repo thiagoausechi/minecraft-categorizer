@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { TooltipState } from "../../components/layout/Tooltip/types";
 
-const useTooltip = (): [TooltipState, React.Dispatch<React.SetStateAction<TooltipState>>] => 
+import { TooltipHookProps } from "../../components/layout/Tooltip/types";
+
+const useTooltip = (): TooltipHookProps => 
 {
-    const [props, setTooltip] = useState({ active: false, x: 0, y: 0 });
+    const [state, setTooltip] = useState({ active: false, x: 0, y: 0 });
 
-    return [props, setTooltip];
+    return { state, setTooltip };
 }
 
 export default useTooltip;

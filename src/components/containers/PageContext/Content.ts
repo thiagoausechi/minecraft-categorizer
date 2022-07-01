@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const Content = styled.div<{ vh: (s: number) => number }>`
+const Content = styled.div`
     margin: auto;
-    min-height: ${p => `${p.vh(65)}px`};
+    min-height: 78vh;
     width: fit-content;
 `;
 

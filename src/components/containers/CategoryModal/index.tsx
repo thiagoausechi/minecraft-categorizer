@@ -110,7 +110,7 @@ const CategoryModal: React.FC<Props> = ({ openedCategory, closeModal }) =>
             <Section>
                 <h3>Choose an Icon</h3>
                 <GuiPanel>
-                    <ItemIcon texture={selectedIcon.texture} name={selectedIcon.name} size={50} inSlot={false} />
+                    <ItemIcon texture={selectedIcon.texture} name={selectedIcon.name} size={64} inSlot={false} />
                 </GuiPanel>
 
                 <Textbox

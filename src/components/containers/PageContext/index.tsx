@@ -23,7 +23,7 @@ interface Props
 
 const Page: React.FC<Props> = ({ title, content }) =>
 {
-    const { width, height, vh } = useWindowDimensions();
+    const { width, height } = useWindowDimensions();
     const navigate = useNavigate();
 
     useEffect(() =>
@@ -51,7 +51,7 @@ const Page: React.FC<Props> = ({ title, content }) =>
                 </Clickable>
             </Header>
 
-            <Content vh={vh}>
+            <Content>
                 {content}
             </Content>
 
@@ -89,7 +89,7 @@ const Logo = styled.img`
 const Credits    = () => <h5>Created by <Creator />.</h5>;
 const Creator    = () => <a href="https://github.com/thiagoausechi" target="_blank" rel="noreferrer">Thiago Ausechi</a>;
 const Disclaimer = () => <h5>"Minecraft"™ is a trademark of Mojang Synergies AB. <br />We are not affiliate with Mojang.</h5>;
-const McVersion  = () => <h5>Using Minecraft {MC_VERSION} Items</h5>
+const McVersion  = () => <h5>Using Minecraft {MC_VERSION} Items.</h5>
 const Version    = () => <h5>{Package.version}</h5>;
 
 export default Page;

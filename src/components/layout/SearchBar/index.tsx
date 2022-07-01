@@ -17,7 +17,7 @@ interface Props
 
 const SearchBar: React.FC<Props> = ({ text, updateSearchText, tips }) =>
 {
-    const [{ active, x, y }, setTooltip] = useTooltip();
+    const { state: { active, x, y }, setTooltip } = useTooltip();
 
     return (
         <Control>

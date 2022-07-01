@@ -17,7 +17,7 @@ interface StyleProps
 const Icon = styled.img<StyleProps>`
     position: ${p => p.inSlot ? "absolute" : ""};
 
-    image-rendering: auto;
+    image-rendering: pixelated;
     vertical-align: middle;
     border: 0;
 

@@ -65,7 +65,6 @@ const ContextMenu: React.FC = () =>
             <ItemIcon
                 texture={getItemById(categories[id].icon).texture}
                 name={categories[id].name}
-                size={28}
                 inSlot={false}
             />
             <span>{categories[id].name}</span>

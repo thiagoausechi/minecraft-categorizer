@@ -6,18 +6,34 @@
   * Create any amount of presets
 - Categories Group
   * For even more customization, you'll be able to sort out the categories in groups
+- Dark Mode
+  * Because yes
 
 ## 🔨 Known Issues
 You can see all known issue [here](https://github.com/thiagoausechi/minecraft-categorizer/issues).
 Make sure to report any eventual issue you have experienced. Or leave a feature suggestion so I can improve your experience.
 
 ## 🚀 Updates & Releases
+## v1.0.4
+- You can now search by checked items
+  * Use "checked" or "notChecked" to filter those items
+- Fixed an error when using the normal version of "not" filters in the search bar that wasn't filtering properly items ([#6](https://github.com/thiagoausechi/minecraft-categorizer/issues/6))
+  * Eg.: "notStackable" works as expected, but just "stackable" wasn't working at all
+- Replaced "notBlock" keyword with "isItem" in the search engine
+- Selected Items are now cleared when changing Presets
+- Slightly changed the selected slot aesthetic
+- "Dirt Path" is now tagged as Creative Only
+- Added a Release Notes
+- Changed the image render to "pixelated".
+  * This change will make the "look" of the items more like the game
+  * Change under review, please show us your feedback
+
 ## v1.0.3
-- Added Context Menu/Right Click
+- Added Context Menu/Right Click ([#2](https://github.com/thiagoausechi/minecraft-categorizer/issues/2))
   * You can move items easily by choosing the categories under the "Move to" option
   * Use the Context Menu to check/unchek items. See more below
   * "Refund" will move all selected items from their respective categories to the "Items" list
-- Added the "Check Items" functionality
+- Added the "Check Items" functionality ([#1](https://github.com/thiagoausechi/minecraft-categorizer/issues/1))
   * All checked items must be in a category
   * All checked items will be saved and loaded with the User Preset
   * We have no opinion on what the checked items might mean to the user
@@ -25,7 +41,7 @@ Make sure to report any eventual issue you have experienced. Or leave a feature 
   * Eg.: You can use it to know which items are already properly placed in the in-game categorizer
 - Added a total number of categories when "Reordering Mode" is enabled
 - Fixed a visual inconsistent when hovering an item slot
-- Fixed a critical bugerror that incorrectly overwritten all category information
+- Fixed a critical error that incorrectly overwritten all category information
 
 ## v1.0.2
 - Added a "Tip Icon" at the end of the search bar

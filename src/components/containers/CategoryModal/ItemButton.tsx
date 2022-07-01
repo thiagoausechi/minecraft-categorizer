@@ -7,7 +7,7 @@ const ItemButton: React.FC<{ item: ItemType, setIcon: Function }> = ({ item, set
 {
     return (
         <ItemFrameButton onClick={() => setIcon(item)}>
-            <ItemIcon texture={item.texture} name={item.name} size={30} inSlot={false} />
+            <ItemIcon texture={item.texture} name={item.name} inSlot={false} />
         </ItemFrameButton>
     );
 }

@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { ChangeEvent, useState } from "react";
 import { CategoryType } from "../../../lib/Categories.type";
 import { useAppSelector } from "../../../lib/hooks/useAppSelector.hook";
@@ -6,6 +5,9 @@ import { consolidate } from "../../../lib/MinecraftItems";
 import { CATEGORY_TIPS, filterCategory, filterItem } from "../../../lib/search";
 
 import GuiPanel from "../../layout/GuiPanel";
+import Wrapper from "./Wrapper";
+import SearchBar from "../../layout/SearchBar";
+import IconButtons from "./IconButtons";
 import CategoryCard from "../CategoryCard";
 import CategoryModal from "../CategoryModal";
 import CategoryReorderCard from "../CategoryReorderCard";
@@ -13,12 +15,12 @@ import Modal from "../Modal";
 import List from "./List";
 import Top from "./Top";
 
+import { isDevEnv } from "../../../lib/dev";
 import { ReorderIcon } from "../../layout/ClickableIcons/ReorderIcon";
 import { NewCategoryIcon } from "../../layout/ClickableIcons/NewCategoryIcon";
 import { CopyToClipboardIcon } from "../../layout/ClickableIcons/CopyToClipboardIcon";
 import { SavePresetIcon } from "../../layout/ClickableIcons/SavePresetIcon";
-import { isDevEnv } from "../../../lib/dev";
-import SearchBar from "../../layout/SearchBar";
+import Center from "../../layout/Center";
 
 const CategoriesSection: React.FC = () => 
 {
@@ -55,24 +57,24 @@ const CategoriesSection: React.FC = () =>
         <GuiPanel title="Categories">
             <Wrapper>
                 <Top>
-                    <div style={{ flexGrow: 1 }}>
+                    <Top.Grow>
                         <SearchBar text={searchText} updateSearchText={updateSearchText} tips={CATEGORY_TIPS} />
-                    </div>
-                    <Buttons>
+                    </Top.Grow>
+                    <IconButtons>
                         {!isDevEnv ? null :
                             <CopyToClipboardIcon data={{ categories, categories_order: order }} />
                         }
                         <SavePresetIcon />
                         <ReorderIcon activated={isReordering} onClick={toggleReordering} />
                         <NewCategoryIcon activated={!!activeCategory} onClick={openModal} />
-                    </Buttons>
+                    </IconButtons>
                 </Top>
 
                 {isReordering ?
-                    <div>
-                        <List>
-                            {order.length <= 1 ? <AlertMoreCategories /> :
-                                order.map((key, index) =>
+                    <List>
+                        {order.length <= 1 ? <AlertMoreCategories /> :
+                            <>
+                                {order.map((key, index) =>
                                     <CategoryReorderCard
                                         key={key}
                                         index={index}
@@ -80,11 +82,12 @@ const CategoriesSection: React.FC = () =>
                                         openEditModal={openEditModal}
                                     />
                                 )}
-                        </List>
-                        <h3 style={{ textAlign: 'center' }}>
-                            Total of {order.length} categories
-                        </h3>
-                    </div>
+                                <Center>
+                                    <h3>Total of {order.length} categories</h3>
+                                </Center>
+                            </>
+                        }
+                    </List>
                     :
                     <List>
                         {filteredOrder.map(key =>
@@ -99,37 +102,13 @@ const CategoriesSection: React.FC = () =>
                     </List>
                 }
 
-                <Modal
-                    isOpen={!!activeCategory}
-                    onClose={closeModal}
-                    content={<CategoryModal openedCategory={activeCategory} closeModal={closeModal} />}
-                />
+                <Modal isOpen={!!activeCategory} onClose={closeModal}>
+                    <CategoryModal openedCategory={activeCategory} closeModal={closeModal} />
+                </Modal>
             </Wrapper>
         </GuiPanel>
     );
 }
-
-const Wrapper = styled.div`
-    width: max(50vw, 510px);
-
-    @media screen and (max-width: 600px)
-    {
-        width: max(90vw, 268px);
-    }
-`
-
-const Buttons = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    margin-left: 8px;
-    align-items: center;
-
-    @media screen and (max-width: 600px)
-    {
-        display: none;
-    }
-`
 
 const AlertAddCategories = () => <h4>You can start by creating new categories!</h4>;
 const AlertMoreCategories = () => <h4>You need to add more categories!</h4>;

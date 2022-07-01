@@ -4,21 +4,45 @@ Modal.setAppElement("#root");
 
 interface Props
 {
-    isOpen: boolean,
-    onClose: any,
-    content: any
+    isOpen: boolean
+    onClose: any
+    children: any
+    clearStyle?: boolean
 };
 
-const ModalBox: React.FC<Props> = ({ isOpen, onClose, content }) =>
+const ModalBox: React.FC<Props> = ({ isOpen, onClose, children, clearStyle }) =>
 {
     return (
-        <Modal isOpen={isOpen} onRequestClose={onClose} style={styles}>
-            {content}
+        <Modal isOpen={isOpen} onRequestClose={onClose} style={clearStyle ? CLEAR_STYLE : GUI_STYLE}>
+            {children}
         </Modal>
     );
 }
 
-const styles =
+const CLEAR_STYLE =
+{
+    overlay:
+    {
+        backgroundColor: "#000000CC",
+    },
+
+    content:
+    {
+        top: "50%",
+        left: "50%",
+        right: "auto",
+        bottom: "auto",
+        marginRight: "-50%",
+        padding: "0px",
+        border: "0px",
+        borderRadius: "0px",
+        backgroundColor: "",
+        transform: "translate(-50%, -50%)"
+    }
+}
+
+// TODO Remove this, leave it up to Modal itself to define its style
+const GUI_STYLE =
 {
     overlay:
     {
