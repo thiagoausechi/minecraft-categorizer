@@ -1,16 +1,17 @@
 {
   "files": {
     "main.css": "/minecraft-categorizer/static/css/main.beaede26.css",
-    "main.js": "/minecraft-categorizer/static/js/main.5df2c630.js",
+    "main.js": "/minecraft-categorizer/static/js/main.93e0d1e4.js",
     "static/media/title.png": "/minecraft-categorizer/static/media/title.71369e61e0b0a0883cd5.png",
     "static/media/herobrine.png": "/minecraft-categorizer/static/media/herobrine.ded44b95d6f14fefead3.png",
+    "static/media/book.png": "/minecraft-categorizer/static/media/book.9d096c2895b530e1feb8.png",
     "static/media/Minecraft.woff": "/minecraft-categorizer/static/media/Minecraft.4afaad98dacce11bbea3.woff",
     "index.html": "/minecraft-categorizer/index.html",
     "main.beaede26.css.map": "/minecraft-categorizer/static/css/main.beaede26.css.map",
-    "main.5df2c630.js.map": "/minecraft-categorizer/static/js/main.5df2c630.js.map"
+    "main.93e0d1e4.js.map": "/minecraft-categorizer/static/js/main.93e0d1e4.js.map"
   },
   "entrypoints": [
     "static/css/main.beaede26.css",
-    "static/js/main.5df2c630.js"
+    "static/js/main.93e0d1e4.js"
   ]
 }
